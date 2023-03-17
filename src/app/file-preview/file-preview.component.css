@@ -1,0 +1,6 @@
+::ng-deep .ng2-pdf-viewer-container{
+    width: 40% !important;
+    height: 70% !important;
+    padding-left: 30px !important;
+    margin-right: 50px !important;
+}

@@ -3619,6 +3619,7 @@ li .job-spotlight p { color: #888; }
 	margin: 20px 0 0 20px;
 	padding: 50px;
 	text-align: center;
+	text-decoration: none;
 	color: #777;
 	transition: 0.4s;
 	transform: scale(1);

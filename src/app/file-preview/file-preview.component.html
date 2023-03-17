@@ -1,0 +1,37 @@
+
+
+
+    <h1 class="text-center" style="color: blue;padding: 15px 60px;">Choose your Resume</h1>
+    <div class="row">
+    <h3 class="col"style="padding: 15px 60px; padding-left: 150px;">Your Old Resume</h3>
+    <h3 class="col"style="padding: 15px 60px; padding-left: 550px; ">    Your New Resume</h3>
+    </div>
+  <div class="row">
+    <div class="col-7">
+        <pdf-viewer [src]="imgURL" 
+        [render-text]="true"
+        [fit-to-page]="true"
+        [original-size]="true"
+        style="display: contents;"
+        ></pdf-viewer>
+
+    
+  </div>
+  
+  <div class="col-5">
+    <pdf-viewer [src]="imgURL" 
+    [render-text]="true"
+    [fit-to-page]="true"
+    [original-size]="true"
+    style="display: contents;"
+    ></pdf-viewer>
+</div>
+
+  </div>
+   
+
+
+
+
+
+ 
