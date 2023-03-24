@@ -1,15 +1,22 @@
 <div class="page">
 <div class="wrapper">
+    
     <header>UPLOAD MY RESUME</header>
     
         <label>
         <input type="file" multiple (change)="onSelectFile($event)" hidden/>
+       
+        
         <i class="fa fa-upload"></i>
         <p>Browse File To Upload</p>
+        <br>
+        <div>
+            <button type="submit"class="btn btn-outline-primary"(click)="onSubmit()">Upload</button>
+        </div>
         </label>
   
-    <button routerLink="/cvImport" id="bnt-1" type="button" class="btn btn-outline-primary"><i class="bi bi-arrow-90deg-left"></i></button>
-    <button routerLink="/filePreview" id="bnt-2" type="button" class="btn btn-outline-danger"><i class="bi bi-arrow-90deg-right"></i></button>
+    <button routerLink="/cvImport" id="bnt-1" type="button" class="btn btn-outline-primary"(click)="close()"><i class="bi bi-arrow-90deg-left"></i></button>
+    <button routerLink="/filePreview" id="bnt-2" type="button" class="btn btn-outline-danger"(click)="close()"><i class="bi bi-arrow-90deg-right"></i></button>
 </div>
 
 </div>
