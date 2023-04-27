@@ -17,30 +17,32 @@ for i in range(pages):
 
 
 
-#def extract_entity_sections(text):
-
-text_split = [i.strip() for i in text.split('\n')]
+def extract_entity_sections_grad(text):
+    '''
+    Helper function to extract all the raw text from sections of
+    resume specifically for graduates and undergraduates
+    :param text: Raw text of resume
+    :return: dictionary of entities
+    '''
+    text_split = [i.strip() for i in text.split('\n')]
     # sections_in_resume = [i for i in text_split if i.lower() in sections]
-entities = {}
-key = False
-contact = {}
-experience = {}
-langues = {}
-for phrase in text_split:
-    if len(phrase) == 1:
-        p_key = phrase
-    else:
-        p_key = set(phrase.lower().split()) & set(cs.RESUME_SECTIONS)
-    try:
-        p_key = list(p_key)[0]
-    except IndexError:
-        pass
-    if p_key in cs.RESUME_SECTIONS:
-        entities[p_key] = []
-        key = p_key
-    elif key and phrase.strip():
-        entities[key].append(phrase)
-    
+    entities = {}
+    key = False
+    for phrase in text_split:
+        if len(phrase) == 1:
+            p_key = phrase
+        else:
+            p_key = set(phrase.lower().split()) & set(cs.RESUME_SECTIONS)
+        try:
+            p_key = list(p_key)[0]
+        except IndexError:
+            pass
+        if p_key in cs.RESUME_SECTIONS:
+            entities[p_key] = []
+            key = p_key
+        elif key and phrase.strip():
+            entities[key].append(phrase)
+
     # entity_key = False
     # for entity in entities.keys():
     #     sub_entities = {}
@@ -57,11 +59,12 @@ for phrase in text_split:
     # make entities that are not found None
     # for entity in cs.RESUME_SECTIONS:
     #     if entity not in entities.keys():
-    #         entities[entity] = None 
-    j = json.dumps(entities)
-    print(j)
-      
-for key, value in entities.items():
+    #         entities[entity] = None
+    return entities
+
+
+
+""" for key, value in entities.items():
     if key in ['contact']:
         contact[key] = value
     elif key in ['experience']:
@@ -77,12 +80,14 @@ for row in contact.values():
     c["adr2"] = row[3]
 print(c)
 
+
 for row in experience.values():
     e = collections.OrderedDict()
     e["date"] = row[0]
     e["société"] = row[1]
     e["poste"] = row[2]
     e["taches"] = row[3]
+
 print(e)
 
 for row in langues.values():
@@ -91,11 +96,11 @@ for row in langues.values():
     l["l2"] = row[1]
     l["l3"] = row[2]
 print(l)
+ """
 
-
-    #return j
  
-#print(extract_entity_sections(text)) 
+ 
+print(extract_entity_sections_grad(text)) 
 
 
 

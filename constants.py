@@ -13,14 +13,14 @@ STOPWORDS         = set(stopwords.words('french'))
 RESUME_SECTIONS = [
                     
                     'contact',
+                    'profil',
+                    'centre',
                     'competences',
-                    'logiciels',
                     'langues',
-                    'qualites',
                     'formation',
-                    'hobbies',
                     'experience',
-                    'objectif',
+                    'hobbies',
+                  
                     
-                ]
+]
 
