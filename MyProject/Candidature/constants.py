@@ -1,7 +1,6 @@
 from nltk.corpus import stopwords
 
-# Nom  Prenom
-NAME_PATTERN      = [{'POS': 'PROPN'}, {'POS': 'PROPN'}]
+
 
 
 
