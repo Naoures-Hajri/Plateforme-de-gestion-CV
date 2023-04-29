@@ -1,0 +1,119 @@
+<!-- <div class="container p-5">
+    <div class="row">
+      <div class="col-lg-4 bg-dark text-white text-center py-4">
+        <div class="header-left">
+           
+            <img class="img-thumbnail rounded-circle mb-2 " src="assets/images/aa.jpg"alt="">
+            <h1 class="display-5">John Smith</h1>
+            <h4 class="lead text-uppercase text-white-50 mb-4">Web Developer</h4>
+        </div>
+        <div>    
+          <h4 class="text-uppercase bg-white text-dark py-2 rounded-pill">CONTACT</h4>
+          
+          <ul class="list-unstyled text-white-50 ml-5 py-2 text-left">
+            <li class="list-item"><i class="fas fa-mobile-alt mx-4"></i>{{contact[0]}}</li>
+            <li class="list-item"><i class="fas fa-envelope-open-text mx-4"></i>mail@gmail.com</li>
+            <li class="list-item"><i class="fas fa-map-marker-alt mx-4"></i>Kawasoti, landon</li>  
+          </ul>  
+        </div>
+        <div>
+            <h4 class="text-uppercase bg-white text-dark py-2 rounded-pill">COMPETENCES</h4>
+            <ul class="list text-white-50 ml-5 py-2 text-left text-capitalize">
+                <li class="list-item" *ngFor="let c of competences">{{ c }}</li>
+                <li class="list-item">Logiciels:</li>
+                <li class="list-item">Languages:</li>
+                <li class="list-item">Système d'exploitation:</li>  
+            </ul>  
+        </div>
+        <div>
+            <h4 class="text-uppercase bg-white text-dark py-2 rounded-pill">LANGUE</h4>
+            <ul class="list text-white-50 ml-5 py-2 text-left text-capitalize">
+                <li class="list-item">Arabe: Native</li>
+                <li class="list-item">Français: Avancé</li>
+                <li class="list-item">Anglais: Avancé</li>  
+            </ul>  
+        </div>
+        <div>
+            <h4 class="text-uppercase bg-white text-dark py-2 rounded-pill">CENTRE D'INTERET</h4>
+            <ul class="list text-white-50 ml-5 py-2 text-left text-capitalize">
+                <li class="list-item">Voyage</li>
+                <li class="list-item">Lecture</li>
+                <li class="list-item">Natation</li>  
+            </ul>  
+        </div>
+      </div>
+      <div class="col-lg-8 bg-light text-dark py-4 px-5">
+        <div class="header-right">
+            <div>
+                <h3 class="text-uppercase">EXPERIENCE PROFESSIONNELLE</h3>
+             
+                <ul class="list">
+                    <li class="list-item">
+                        <h5 class="display-6 text-uppercase">Developpeur web</h5>
+                        <h6 class="text-uppercase text-black-50">Ggn-Technologie / 2021-2022</h6>
+                        <p>Developpement d’un
+                            systeme ERP qui se compose plusieurs
+                            modules(clients /gestion de stock/fournisseurs/gestion
+                            des factures et des connexions des API).
+                            <br>Technologies : SYMFONY/PHP , HTML5, CSS3,
+                                AJAX,JAVASCRIPT,MYSQL,BOOTSTRAP
+                            <br>Méthodologie: SCRUM
+                            </p>
+
+                    </li>
+                    <hr>
+                    <li class="list-item">
+                        <h5 class="display-6 text-uppercase">Front End Developer</h5>
+                        <h6 class="text-uppercase text-black-50">someCompany.com / 2019-2020</h6>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae obcaecati distinctio velit non ipsum
+                            dolor sit amet, consectetur adipisicing elit. Beatae obcaecati distinctio velit non
+                            perspiciatis neque
+                            perspiciatis neque!
+                        </p>
+
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+      </div>
+    </div>
+</div>    
+     
+    
+  -->
+   <div>
+    <h3>Contact:</h3>
+    <ul>
+      <li *ngFor="let c of contact">{{ c }}</li>
+    </ul>
+  
+    <h3>Compétences:</h3>
+    <ul>
+      <li *ngFor="let c of competences">{{ c }}</li>
+    </ul>
+  </div>
+ 
+  <li *ngFor="let c of competences">{{ c }}</li>
+ 
+  <form>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" name="email" [(ngModel)]="contact[1]" />
+    </div>
+  
+    <button type="submit">Save</button>
+  </form> 
+
+	
+		
+
+
+
+
+
+
+
+ 
