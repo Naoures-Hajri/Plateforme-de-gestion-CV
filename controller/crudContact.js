@@ -1,33 +1,42 @@
 
 
-const Contact = require('../model/contact')
-exports.contactGetAll = (req, res, next) => {
-    //find all database objects of schema type contact
-    Contact.find((err, foundObjects) => {
-      if (err) return next(err);
-      //return found objects to client
-      return res.status(200).json(foundObjects).end();
-    });}
-exports.createcontact = (req, res) => {
-   if(!req.body.tel){
-      console.log ("tel cannot be empty")
-   }
-   if(!req.body.mail){
-    console.log ("mail cannot be empty")
-   }
-   if(!req.body.adresse){
-    console.log ("adresse cannot be empty")
+const contacts = require('../model/contact')
+exports.findallC= async(req,res)=>{
+    try{
+    await contacts.find({})
+    .then(result=>{res.send(result)})
+    }catch(err){
+        console.log(err)
     }
-    const contact = new contacts({
+}
+exports.createcontact = async(req, res) => {
+    try{
+    let contact = new contacts({
        tel: req.body.tel,
        mail: req.body.mail,
-       adress:req.body.adresse,
+       adresse:req.body.adresse,
     });
-    contact.save().then((res, err)=>{
-     if(err){
-      console.log(err)
-     }else {
-      console.log(res)
-     }
-    })
+    await contact.save();
+    res.send("Save effectué avec succés!")
+    }catch(err){
+        console.log(err)
+    }
+}
+exports.deleteContact = async(req, res) => {
+    try{
+        await contacts.findOneAndDelete({_id:req.params.id});
+        res.send("Supprimé avec succés!")
+    }catch(err){
+        res.send(err)
+    }
+}
+exports.updateContact = async(req, res) => {
+    try{
+        await contacts.findOneAndUpdate({_id:req.params.id},{
+            mail: req.body.mail});
+        res.send("mise à jour avec succés")    
+        
+    }catch(err){
+        res.send(err)
+    }
 }

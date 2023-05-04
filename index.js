@@ -5,15 +5,12 @@ var corsOptions = {
     origin:"http://localhost:8081"
   }
 const app = express()
-const dbConf=require('./model');
-const db= require('./config/db')
+const dbUrl="mongodb+srv://admin:admin@cluster0.scwf6qx.mongodb.net/Project?retryWrites=true&w=majority"
+
 app.use(cors(corsOptions))
 app.use(express.json())
 
-dbConf.mongoose.connect(`mongodb://${db.Host}:${db.Port}/${db.DB}`,{
-  useNewUrlParser : true,
-  useUnifiedTopology : true
-})
+mongoose.connect(dbUrl)
 .then(() =>{
   console.log("Successfully connect to MongoDB");
  // initial();

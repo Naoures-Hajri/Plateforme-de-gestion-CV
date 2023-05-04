@@ -4,6 +4,11 @@ module.exports=app =>{
 //create new Contact
 router.post("/createCont", contact.createcontact)
 //get Contact
-router.get("/allContact",contact.contactGetAll)
+router.get("/allContact",contact.findallC)
+//delete Contact
+router.delete("/deleteContact/:id",contact.deleteContact)
+//update Contact
+router.put('/updateContact/:id',contact.updateContact)
+
 app.use("/contact" , router)
 };
