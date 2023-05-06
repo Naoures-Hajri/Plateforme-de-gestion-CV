@@ -1,8 +1,7 @@
-export class contact{
-    ref?: number;
-    nom?: String;
-    prenom?: String;
-    tel?: Number;
-    mail?: String;
-    adresse?: String;
+export class Contact{
+    constructor(
+    public tel?: number,
+    public mail?: String,
+    public adresse?: String,
+    ){}
 }

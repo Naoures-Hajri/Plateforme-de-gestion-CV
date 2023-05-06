@@ -7,10 +7,11 @@ import { CvImportComponent } from './components/cv-import/cv-import.component';
 import { FileUpComponent } from './components/file-up/file-up.component';
 import { FilePreviewComponent } from './components/file-preview/file-preview.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {MatDialogModule} from '@angular/material/dialog';
+import{NgToastModule} from 'ng-angular-popup';
 import { ModeleCvComponent } from './components/modele-cv/modele-cv.component';
 import { CreateCVComponent } from './components/create-cv/create-cv.component';
 @NgModule({
@@ -28,6 +29,9 @@ import { CreateCVComponent } from './components/create-cv/create-cv.component';
     AppRoutingModule,
     PdfViewerModule,
     HttpClientModule,
+    FormsModule,
+    NgToastModule,
+    ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
     ToastrModule.forRoot(),// ToastrModule added
