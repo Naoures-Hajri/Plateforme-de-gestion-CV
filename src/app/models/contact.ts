@@ -1,6 +1,6 @@
 export class Contact{
     constructor(
-    public tel?: number,
+    public tel?: String,
     public mail?: String,
     public adresse?: String,
     ){}

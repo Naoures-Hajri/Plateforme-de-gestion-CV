@@ -42,7 +42,7 @@
 	
 	<div id="demo-accordion-collapse" role="tablist">
 	  <div class="card">
-		<div class="card-header" role="tab" id="accord1">
+		<div class="card-header"  role="tab" id="accord1">
 			<h3 data-toggle="collapse" class="pt-5 " href="#collapse-pane-1" role="button" aria-expanded="true" aria-controls="collapse-pane-1">
 			  CONTACT
 			  <span class="pull-right">
@@ -53,25 +53,7 @@
 	
 		<div id="collapse-pane-1" class="collapse show" role="tabpanel" aria-labelledby="accord1" data-parent="#demo-accordion-collapse">
 		  <div class="card-body">
-			<form >
-			<div class="form-group row" >	
-							
-				<div class="col-sm-6">
-					<input type="number" name="tel"  class="form-control"  placeholder="Téléphone">
-					
-				</div>
-				<div class="col-sm-6" >
-					<input type="text" name="mail"  class="form-control" [(ngModel)]="contact[1]"  required>
-				</div>
-			</div>
-			<div class="form-group row">	
-				
-				<div class="col-sm-6">
-					<input type="text" name="adresse" id="adresse" class="form-control" placeholder="Adresse" value="" required>
-				</div>
-			</div>
-			<button type="button"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-			</form>
+			<app-contact></app-contact>
 		</div>
 		
 	  </div>
@@ -87,37 +69,9 @@
 		  </h5>
 		</div>
 		<div id="collapse-pane-2" class="collapse" role="tabpanel" aria-labelledby="accord2" data-parent="#demo-accordion-collapse">
-		  <div class="card-body">
-			<div class="form-group row">
-				<div class="col-sm-6">
-					<h5 class="text-black">Logiciels:</h5>	
-				</div>
-				<div class="col-sm-6">
-					<input type="text" name="logiciel" id="logiciel" class="form-control" placeholder="Logiciel" value="" required>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-sm-6">
-					<h5 class="text-black">Languages:</h5>	
-				</div>
-				<div class="col-sm-6">
-					<input type="text" name="Language" id="Language" class="form-control" placeholder="Language" value="" required>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-sm-6">
-					<h5 class="text-black">Système d'exploitation:</h5>	
-				</div>
-				<div class="col-sm-6">
-					<input type="text" name="sys_exp" id="sys_exp" class="form-control" placeholder="Système d'exploitation" value="" required>
-				</div>
-			</div>
-			<button type="button"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-		  </div>
-		  
-		</div>
+	       <app-competences></app-competences>
 		
-	  </div>
+	    </div>
 	  <div class="card">
 		<div class="card-header" role="tab" id="accord3">
 		  <h5 class="mb-0">

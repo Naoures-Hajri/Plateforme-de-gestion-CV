@@ -14,6 +14,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import{NgToastModule} from 'ng-angular-popup';
 import { ModeleCvComponent } from './components/modele-cv/modele-cv.component';
 import { CreateCVComponent } from './components/create-cv/create-cv.component';
+import {Ng2TelInputModule} from 'ng2-tel-input';
+import { CompetencesComponent } from './components/competences/competences.component';
+import { ContactComponent } from './components/contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +25,8 @@ import { CreateCVComponent } from './components/create-cv/create-cv.component';
     FilePreviewComponent,
     ModeleCvComponent,
     CreateCVComponent,
+    CompetencesComponent,
+    ContactComponent,
     
   ],
   imports: [
@@ -31,6 +36,7 @@ import { CreateCVComponent } from './components/create-cv/create-cv.component';
     HttpClientModule,
     FormsModule,
     NgToastModule,
+    Ng2TelInputModule,
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
