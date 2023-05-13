@@ -17,7 +17,9 @@ exports.createcontact = async(req, res) => {
        adresse:req.body.adresse,
     });
     await contact.save();
-    res.send("Save effectué avec succés!")
+    
+    console.log("Save effectué avec succés!")
+    res.json({contact})
     }catch(err){
         console.log(err)
     }
