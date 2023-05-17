@@ -1,4 +1,5 @@
-export class Centre_interet{
-    ref?: number;
-    centre_interet?: String;
-}
+export class Interet{
+    constructor(
+    public interet?: String[],
+    ){}
+ }

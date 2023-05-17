@@ -12,7 +12,7 @@ import { CrudCVService } from 'src/app/service/crud-cv.service';
 })
 export class ContactComponent {
   contactForm:FormGroup;
-  contact: string[] = []=JSON.parse(localStorage.getItem('contact')||' ') ;
+  contact: string[] = [] ;
  
   
   
@@ -68,7 +68,7 @@ export class ContactComponent {
   ngOnInit() {
 
   
- 
+   this.contact=JSON.parse(localStorage.getItem('contact')||' ')
     this.contactForm.patchValue({
       tel:this.contact.find(num=>num.match('[0-9]*')),
       

@@ -1,21 +1,30 @@
 <div class="card-body" >
-	<form [formGroup]="compForm">	
-    <div class="input-group mb-3"*ngFor="let c of comp;let i=index">
-        
-        <input name="competence"  type="text" class="form-control"  aria-describedby="basic-addon2"  defaultValue="{{c}}">
-        <span class="input-group-text" id="basic-addon2"><i type="button"(click)="delete(i)"class="fa fa-trash"  aria-hidden="true"></i> </span>
+  <form [formGroup]="compForm" (ngSubmit)="saveCompetence()">
+    <div formArrayName="competence" class="input-group mb-3" *ngFor="let c of existingComp().controls; let i=index">
+      <input type="text" class="form-control" aria-describedby="basic-addon2" [formControlName]="i">
+      <span class="input-group-text" id="basic-addon2">
+        <i type="button" (click)="delete(i)" class="fa fa-trash" aria-hidden="true"></i>
+      </span>
+      
     </div>
-    <div class="input-group" formArrayName="newComp">
+     
+    <div formArrayName="newComp">
       <div class="input-group mb-3" *ngFor="let new of newComp().controls; let i=index" [formGroupName]="i">  
-         
-        
-            <input type="text"name="compt" formControlName="compt"aria-describedby="basic-addon2"  class="form-control">  
-            <span class="input-group-text" id="basic-addon2"><i type="button"(click)="deleteNew(i)"class="fa fa-trash"  aria-hidden="true"></i> </span>
-       
+        <input type="text" name="compt" formControlName="compt" aria-describedby="basic-addon2" class="form-control">  
+        <span class="input-group-text" id="basic-addon2">
+          <i type="button" (click)="deleteNew(i)" class="fa fa-trash" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
-      <button type="button"(click)="saveCompetence()"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-      <button type="button"(click)="addItem()"style="font-size:18px;margin-left:300px;" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
-   
-    </form>
+    
+    <button type="submit" style="font-size:18px" class="btn btn-primary">
+      <span class="glyphicon glyphicon-ok"></span> Terminé
+    </button>
+    
+    <button type="button" (click)="addItem()" style="font-size:18px; margin-left:300px;" class="btn btn-primary">
+      <i class="bi bi-plus-square"></i>
+    </button> 
+  </form>
+  
 </div>
+ 

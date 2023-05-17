@@ -17,6 +17,10 @@ import { CreateCVComponent } from './components/create-cv/create-cv.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { CompetencesComponent } from './components/competences/competences.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { InteretComponent } from './components/interet/interet.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +31,8 @@ import { ContactComponent } from './components/contact/contact.component';
     CreateCVComponent,
     CompetencesComponent,
     ContactComponent,
+    InteretComponent,
+   
     
   ],
   imports: [
@@ -40,11 +46,14 @@ import { ContactComponent } from './components/contact/contact.component';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
     ToastrModule.forRoot(),// ToastrModule added
     BrowserAnimationsModule // required animations module
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[FileUpComponent]
+  
+
 })
 export class AppModule { }

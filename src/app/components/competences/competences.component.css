@@ -3,3 +3,14 @@ p, .more, .form-control, .readlink, .readmores, li, td{
 	font-size: 15.96px !important;
 	font-weight: 500 !important;
 }
+.custom-dialog-container {
+	background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity as needed */
+  }
+
+  
+  
+  
+  
+  
+  
+  

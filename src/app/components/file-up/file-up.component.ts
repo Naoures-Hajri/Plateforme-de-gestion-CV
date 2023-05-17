@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-file-up',
   templateUrl: './file-up.component.html',
@@ -13,6 +14,7 @@ export class FileUpComponent implements OnInit{
   imgURL: any
   Contact: any[] = [];
   Competence: any[] = [];
+  Interet: any[] = [];
   images: any
   constructor(private toastr: ToastrService,private http : HttpClient, private dialog: MatDialog, private router: Router){}
   ngOnInit(): void {
@@ -44,15 +46,22 @@ export class FileUpComponent implements OnInit{
       //post request to express backend
       this.http.post<any>("http://localhost:8000/api/upload/", formdata)
       .subscribe((response)=>{
+       
       this.Contact=response.contact
-      this.Competence=response.competences
+      this.Competence=response.competences||response.compétences
+      this.Interet=response.centre||response.hobbies
+      
       let data= JSON.stringify(this.Contact)
       let competence= JSON.stringify(this.Competence)
+      let interet=JSON.stringify(this.Interet)
       localStorage.setItem("contact",data);
       localStorage.setItem("competence",competence);
+      localStorage.setItem("interet",interet); 
+      this.router.navigate(['/cv']);
       console.log('response receved is ', this.Contact);
       console.log('skills are ', this.Competence);
-      this.router.navigate(['/cv']);
+      console.log('hobbies are ', this.Interet);
+     
      },err =>{
       console.log(err)
      })
