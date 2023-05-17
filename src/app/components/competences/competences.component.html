@@ -1,5 +1,5 @@
 <div class="card-body" >
-  <form [formGroup]="compForm" (ngSubmit)="saveCompetence()">
+  <form [formGroup]="compForm" >
     <div formArrayName="competence" class="input-group mb-3" *ngFor="let c of existingComp().controls; let i=index">
       <input type="text" class="form-control" aria-describedby="basic-addon2" [formControlName]="i">
       <span class="input-group-text" id="basic-addon2">
@@ -17,11 +17,11 @@
       </div>
     </div>
     
-    <button type="submit" style="font-size:18px" class="btn btn-primary">
+    <button type="button" style="font-size:18px" class="btn btn-primary"(click)="saveCompetence($event)">
       <span class="glyphicon glyphicon-ok"></span> Terminé
     </button>
     
-    <button type="button" (click)="addItem()" style="font-size:18px; margin-left:300px;" class="btn btn-primary">
+    <button type="button" (click)="addItem($event)" style="font-size:18px; margin-left:300px;" class="btn btn-primary">
       <i class="bi bi-plus-square"></i>
     </button> 
   </form>

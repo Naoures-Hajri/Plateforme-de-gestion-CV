@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder,FormArray, FormGroup } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { Competence } from 'src/app/models/Competence';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
-import { MatDialog } from '@angular/material/dialog';
+import { forkJoin,Observable, Observer } from 'rxjs';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class CompetencesComponent implements OnInit{
  
   compForm:FormGroup;
   
-  constructor( private fb: FormBuilder, private service: CrudCVService,private toast: NgToastService,private dialog:MatDialog) { 
+  constructor( private fb: FormBuilder, private service: CrudCVService,private toast: NgToastService) { 
     this.compForm = this.fb.group({  
       competence: this.fb.array([]),  
       newComp: this.fb.array([]),  
@@ -58,36 +58,48 @@ export class CompetencesComponent implements OnInit{
     
   }
 
- addItem(){
+ addItem(event: Event){
   
     this.newComp().push(this.newCompetence());  
-  
+    event.preventDefault(); // Prevent form submission and page refresh
   }
-  saveCompetence(){
+  
+
+  
+  saveCompetence(event: Event) {
+    event.preventDefault(); // Prevent form submission and page refresh
     const existingValues = this.compForm.get('competence')?.value;
     const newValues = this.compForm.get('newComp')?.value;
-    this.comp = [...existingValues, ...newValues.map((v: { compt: string }) => v.compt)]; 
-     // Update localStorage
-    localStorage.setItem('competence', JSON.stringify(this.comp));
-
-    // Update the form control values
-    this.compForm.get('competence')?.setValue(this.comp);
+    this.comp = [...existingValues, ...newValues.map((v: { compt: string }) => v.compt)];
+  
     let competence1 = new Competence(this.comp);
     console.log(competence1);
-
-    this.service.saveCompetence(competence1).subscribe(
-      res => {
-        console.log(res);
+  
+    const saveCompetence$ = this.service.saveCompetence(competence1);
+    const updateLocalStorage$ = new Observable<void>((observer: Observer<void>) => {
+      localStorage.setItem('competence', JSON.stringify(this.comp));
+      observer.next();
+      observer.complete();
+    });
+  
+    forkJoin([saveCompetence$, updateLocalStorage$]).subscribe(
+      ([saveRes]) => {
+        console.log(saveRes);
         setTimeout(() => {
-          this.toast.success({ detail: 'Compétence ajouté avec succès.', summary: 'Succès' });
+          this.toast.success({ detail: 'Compétence ajoutée avec succès.', summary: 'Succès' });
         }, 1000);
+  
+        // Update the form control values
+        this.compForm.get('competence')?.setValue(this.comp);
       },
       err => {
         console.error(err);
-        this.toast.error({detail:'Veuillez vérifier. ', summary:'err msg'});
+        this.toast.error({ detail: 'Veuillez vérifier.', summary: 'Erreur' });
       }
     );
   }
+  
+}
 
 
  
@@ -97,6 +109,6 @@ export class CompetencesComponent implements OnInit{
     })
   } */
     
-  }
+  
 
 
