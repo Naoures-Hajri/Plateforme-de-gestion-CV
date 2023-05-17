@@ -7,8 +7,9 @@ const dbUrl="mongodb+srv://admin:admin@cluster0.scwf6qx.mongodb.net/CV?retryWrit
 
 app.use(cors())
 app.use(express.json())
-require("./routes/contact.routes.js")(app);
+require("./routes/contact.routes")(app);
 require('./routes/competence.routes')(app);
+require('./routes/centreInteret.routes')(app)
 //set port, listen for request 
 const Port = process.env.Port || 8081;
 app.listen(Port, ()=>{

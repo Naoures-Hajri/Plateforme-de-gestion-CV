@@ -4,4 +4,5 @@ const db ={};
 db.mongoose=mongoose;
 db.contact=require('./contact')
 db.competence=require('./competence')
+db.centreInteret=require('./centreInteret')
 module.exports=db;
