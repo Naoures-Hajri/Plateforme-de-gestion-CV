@@ -21,6 +21,7 @@ import { InteretComponent } from './components/interet/interet.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LangueComponent } from './components/langue/langue.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
     CompetencesComponent,
     ContactComponent,
     InteretComponent,
+    LangueComponent,
    
     
   ],

@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 
 import { Contact } from 'src/app/models/Contact';
 import { Competence } from '../models/Competence';
-import { Interet } from '../models/centre_interet';
+import { Interet } from '../models/Interet';
+import { Langue } from '../models/Langue';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class CrudCVService {
   contactUrl="http://localhost:8081/contact"
   competenceUrl="http://localhost:8081/competence"
   interetUrl="http://localhost:8081/interet"
+  langueUrl="http://localhost:8081/langue"
   constructor(private http: HttpClient ) { }
 
   //***************************Contact */
@@ -41,5 +43,17 @@ export class CrudCVService {
 //********************************Interet */
 saveInteret(interet:Interet):Observable<Interet>{
   return this.http.post<Interet>(this.interetUrl+"/createCentre",interet)
+}
+
+
+
+
+
+
+
+
+//**********************************Langue */
+saveLangue(langue:Langue):Observable<Langue>{
+  return this.http.post<Langue>(this.langueUrl+"/createLangue",langue)
 }
 }

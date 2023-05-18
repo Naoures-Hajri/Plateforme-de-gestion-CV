@@ -1,5 +1,6 @@
 export class Langue{
-    ref?: number;
-    langue?: String;
-    niveau?: String;
+    constructor(
+        public titre?: String[],
+        public niveau?: String[],
+        ){}
 }

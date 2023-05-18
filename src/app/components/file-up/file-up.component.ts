@@ -50,18 +50,16 @@ export class FileUpComponent implements OnInit{
       this.Contact=response.contact
       this.Competence=response.competences||response.compétences
       this.Interet=response.centre||response.hobbies
-      
       let data= JSON.stringify(this.Contact)
       let competence= JSON.stringify(this.Competence)
       let interet=JSON.stringify(this.Interet)
       localStorage.setItem("contact",data);
       localStorage.setItem("competence",competence);
-      localStorage.setItem("interet",interet); 
+      localStorage.setItem("interet",interet)
       this.router.navigate(['/cv']);
       console.log('response receved is ', this.Contact);
       console.log('skills are ', this.Competence);
-      console.log('hobbies are ', this.Interet);
-     
+      console.log('hobbies are', this.Interet);
      },err =>{
       console.log(err)
      })

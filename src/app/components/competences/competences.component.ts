@@ -103,11 +103,7 @@ export class CompetencesComponent implements OnInit{
 
 
  
- /*  ngOnInit() {
-    this.compForm.patchValue({
-      competence:[]=this.comp
-    })
-  } */
+
     
   
 

@@ -1,9 +1,9 @@
-import { Centre_interet } from "./centre_interet";
+import { Interet } from "./Interet";
 import { Competence } from "./Competence";
 import { Contact } from "./Contact";
 import { Experience } from "./experience";
 import { Formation } from "./formation";
-import { Langue } from "./langue";
+import { Langue } from "./Langue"
 
 export class medel_cv{
     id?: Number;
@@ -12,5 +12,5 @@ export class medel_cv{
     experience?: Experience;
     competences?: Competence;
     langue?: Langue;
-    centre_interet?: Centre_interet;  
+    centre_interet?: Interet;  
 }
