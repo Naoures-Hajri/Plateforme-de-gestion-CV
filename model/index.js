@@ -5,4 +5,5 @@ db.mongoose=mongoose;
 db.contact=require('./contact')
 db.competence=require('./competence')
 db.centreInteret=require('./centreInteret')
+db.langue=require('./langue')
 module.exports=db;

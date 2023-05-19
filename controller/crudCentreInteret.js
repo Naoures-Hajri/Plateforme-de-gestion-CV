@@ -2,7 +2,7 @@ const centreinterets = require('../model/centreInteret')
 exports.createInteret = async(req, res) => {
     try{
     let interet = new centreinterets({
-       interet: req.body.competence
+       interet: req.body.interet
       
     });
     await interet.save();

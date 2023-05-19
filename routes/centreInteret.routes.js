@@ -3,5 +3,5 @@ module.exports = app =>{
     const router = require("express").Router()
     // create new centreInteret
     router.post("/createCentre", centreInteret.createInteret)
-    app.use("/competence", router)
+    app.use("/interet", router)
 }

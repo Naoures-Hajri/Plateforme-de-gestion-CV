@@ -9,7 +9,8 @@ app.use(cors())
 app.use(express.json())
 require("./routes/contact.routes")(app);
 require('./routes/competence.routes')(app);
-require('./routes/centreInteret.routes')(app)
+require('./routes/centreInteret.routes')(app);
+require('./routes/langue.routes')(app);
 //set port, listen for request 
 const Port = process.env.Port || 8081;
 app.listen(Port, ()=>{
