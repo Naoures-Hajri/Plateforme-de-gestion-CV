@@ -53,7 +53,7 @@ saveInteret(interet:Interet):Observable<Interet>{
 
 
 //**********************************Langue */
-saveLangue(langue:Langue):Observable<Langue>{
-  return this.http.post<Langue>(this.langueUrl+"/createLangue",langue)
+saveLangue(langues:Langue[]):Observable<Langue[]>{
+  return this.http.post<Langue[]>(this.langueUrl+"/createLangue",langues)
 }
 }

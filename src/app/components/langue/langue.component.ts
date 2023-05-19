@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Langue } from 'src/app/models/Langue';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -9,51 +9,58 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./langue.component.css']
 })
 export class LangueComponent {
-  langue: FormGroup[] = [];
+  
+  
   langueForm: FormGroup;
-  
+  storedLangue:Langue[]=[];
   constructor(private fb: FormBuilder, private service: CrudCVService, private toast: NgToastService) {
-    let formControls = {
-      titre: new FormControl('', [
-        Validators.required,
-      ]),
-      niveau: new FormControl('', [
-        Validators.required,
-      ]),
-    };
-  
-    this.langueForm = this.fb.group(formControls);
+    this.langueForm = this.fb.group({
+      titre: this.fb.array([]),
+      niveau: this.fb.array([]),
+      newBloc: this.fb.array([]),
+    });
   }
-  
-  get langueControls() {
-    return this.langueForm.get('langue') as FormArray;
+  get existingTitre(): FormArray {
+    return this.langueForm.get('titre') as FormArray;
   }
-  
-  delete(i: number) {
-    // Supprimer la langue correspondant à l'index i
-    this.langueControls.removeAt(i);
+  get existingNiveau(): FormArray {
+    return this.langueForm.get('niveau') as FormArray;
   }
-  
-  addItem(event: Event) {
-    event.preventDefault();
-    // Créez un nouvel objet vide représentant le nouveau bloc langue/niveau
-    const newLangueNiveau = this.fb.group({
-      titre: ['', Validators.required],
+  get newBloc(): FormArray {
+    return this.langueForm.get("newBloc") as FormArray;
+  }
+  newBlocLangue(): FormGroup {
+    return this.fb.group({
+      newL: '',
+      newN: '',
+    });
+  }
+  addNewBlock() {
+    const newBlock = this.fb.group({
+      langue: ['', Validators.required],
       niveau: ['', Validators.required]
     });
-    // Ajoutez le nouvel objet au tableau langueControls
-    this.langueControls.push(newLangueNiveau);
+    this.existingTitre.push(newBlock.get('langue')); // Ajoute le contrôle 'langue' au tableau 'titre'
+    this.existingNiveau.push(newBlock.get('niveau'));
+  
+    console.log(this.existingTitre.controls); // Affiche les contrôles dans la console
   }
   
+  delete(index: number) {
+    this.existingTitre.removeAt(index);
+  }
   ngOnInit() {
-    const defaultLangue = this.fb.group({
-      titre: ['', Validators.required],
-      niveau: ['', Validators.required]
+    this.storedLangue = JSON.parse(localStorage.getItem('langue') || '[]');
+    console.log(this.storedLangue);
+    
+    this.storedLangue.forEach((langue) => {
+      const langueGroup = this.fb.group({
+        langue: [langue, Validators.required],
+        niveau: ['', Validators.required]
+      });
+      this.existingTitre.push(langueGroup);
     });
-  
-    this.langueControls.push(defaultLangue);
   }
-  
   saveLangue() {
     if (this.langueForm.invalid) {
       this.toast.info({
@@ -63,11 +70,18 @@ export class LangueComponent {
       return;
     }
   
-    const data = this.langueForm.getRawValue().langue;
+    const langues: Langue[] = this.langueForm.value.titre.map((langue: any) => {
+      return {
+        titre: langue.titre,
+        niveau: langue.niveau
+      };
+    });
   
-    // You can then use the 'data' array to save the data
+    // Save the data to localStorage
+    localStorage.setItem('langue', JSON.stringify(langues));
   
-    this.service.saveLangue(data).subscribe(
+    // Save the data
+    this.service.saveLangue(langues).subscribe(
       res => {
         console.log(res);
         setTimeout(() => {
@@ -86,6 +100,12 @@ export class LangueComponent {
       }
     );
   }
+   
   
+ 
+  
+  
+
+
   
 }
