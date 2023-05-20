@@ -69,6 +69,7 @@ export class LangueComponent {
       });
       return;
     }
+    
   
     const langues: Langue[] = this.langueForm.value.titre.map((langue: any) => {
       return {
@@ -81,7 +82,7 @@ export class LangueComponent {
     localStorage.setItem('langue', JSON.stringify(langues));
   
     // Save the data
-    this.service.saveLangue(langues).subscribe(
+    this.service.saveLangue(this.langueForm.value.titre).subscribe(
       res => {
         console.log(res);
         setTimeout(() => {
