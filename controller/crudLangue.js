@@ -8,16 +8,18 @@ exports.findallC= async(req,res)=>{
     }
 }
 exports.createlangue = async(req, res) => {
-    try{console.log(req.body.titre)
-    let langue = new langues({
-       titre: req.body.titre,
-       niveau: req.body.niveau,
-    });
-    await langue.save();
     
-    console.log("Save effectué avec succés!")
-    res.json({langue})
+    console.log('yass22',req.body)
+    const langue = new langues({langue:req.body});
+    try{const e1 = await langue.save()
+        res.status(200).json({langue})
+
     }catch(err){
         console.log(err)
+        res.send('Error' + err)
     }
+    
+    
+    
+    
 }
