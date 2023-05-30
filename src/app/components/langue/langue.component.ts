@@ -73,28 +73,13 @@ export class LangueComponent {
       });
       return;
     }
-    if (this.newBloc.invalid) {
-      this.toast.info({
-        detail: 'Veuillez remplir tous les champs du nouveau bloc.',
-        summary: 'Erreur'
-      });
-      return;
-    }
   
-    const langues: Langue[] = [
-      ...this.langueForm.value.titre.map((langue: any) => {
-        return {
-          langue: langue.titre,
-          niveau: langue.niveau
-        };
-      }),
-      ...this.langueForm.value.newBloc.map((bloc: any) => {
-        return {
-          langue: bloc.newL,
-          niveau: bloc.newN
-        };
-      })
-    ];
+    const langues: Langue[] = this.langueForm.value.titre.map((langue: any) => {
+      return {
+        titre: langue.titre,
+        niveau: langue.niveau
+      };
+    });
   
     // Save the data to localStorage
     localStorage.setItem('langue', JSON.stringify(langues));
