@@ -1,50 +1,29 @@
-<div class="container">
 
-	<h3 class="pt-5">ENTETE
+<div class="container "style="margin-top: 20px;">
+	<h1 class="text-center">UPDATE YOUR CV</h1>
 	
-		<span class="pull-right">
-			
-				<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
-			
-		</span>
-	</h3>
-	
-	<div class="py-5">
-		<div class="row">
-			<div class="col-md-8"></div>
-			<div class="col-md-4">
-				<div class="text-center">
-					<img alt="Andrew Jones" src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle img-responsive mt-2" width="80" height="80">
-					<i type="button"class="material-icons">&#xe439;</i>
-					<div class="mt-2">
-						<input type="file" class="form-control">
-					</div>
-				</div>
-			</div>
-		  </div>
-		<div class="form-group row">	
-			<div class="col-sm-6">
-				<input type="text" name="firstname" id="firstName" class="form-control" placeholder="Frist Name" value="" required>
-			</div>
-			<div class="col-sm-6">
-				<input type="text" name="lastname" id="lastName" class="form-control" placeholder="Last Name" value="" required>
-			</div>
-		</div>
-		<div class="form-group row">	
-			<div class="col-sm-6">
-				<input type="text" name="profession" id="profession" class="form-control" placeholder="profession" value="" required>
-			</div>
-		
-		</div>
-		
-			<button type="button"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-		
-	</div>
+	<form [formGroup]="cvForm" (ngSubmit)="saveCV()">
 	
 	<div id="demo-accordion-collapse" role="tablist">
+		<div class="card">
+			<div class="card-header"  role="tab" id="accord1">
+				<h3 data-toggle="collapse" class="pt-5 " href="#collapse-pane-1" role="button" aria-expanded="true" aria-controls="collapse-pane-1">
+				  ENTETE
+				  <span class="pull-right">
+					<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
+				  </span>
+				</h3>
+			</div>	 
+			
+			<div id="collapse-pane-1" class="collapse show" role="tabpanel" aria-labelledby="accord1" data-parent="#demo-accordion-collapse">
+				<div class="card-body">
+					<app-entete  ></app-entete>
+				</div>
+			
+			</div>
 	  <div class="card">
-		<div class="card-header"  role="tab" id="accord1">
-			<h3 data-toggle="collapse" class="pt-5 " href="#collapse-pane-1" role="button" aria-expanded="true" aria-controls="collapse-pane-1">
+		<div class="card-header"  role="tab" id="accord2">
+			<h3 data-toggle="collapse" class="pt-5 " href="#collapse-pane-2" role="button" aria-expanded="true" aria-controls="collapse-pane-2">
 			  CONTACT
 			  <span class="pull-right">
 				<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -52,16 +31,18 @@
 			</h3>
 		</div>	 
 		
-		<div id="collapse-pane-1" class="collapse show" role="tabpanel" aria-labelledby="accord1" data-parent="#demo-accordion-collapse">
+		<div id="collapse-pane-2" class="collapse show" role="tabpanel" aria-labelledby="accord2" data-parent="#demo-accordion-collapse">
 			<div class="card-body">
-			<app-contact></app-contact>
-			</div>
+				
+				  <app-contact (contactData)="handleContactData($event)" #contactComponent></app-contact>
+				
+			  </div>
 		
-	  </div>
+	    </div>
 	    <div class="card">
-		<div class="card-header" role="tab" id="accord2">
+		<div class="card-header" role="tab" id="accord3">
 		  <h5 class="mb-0">
-			<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-2" role="button" aria-expanded="false" aria-controls="collapse-pane-2">
+			<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-3" role="button" aria-expanded="false" aria-controls="collapse-pane-3">
 				COMPETENCE
 				<span class="pull-right">
 					<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -69,16 +50,16 @@
 			</h3>
 		  </h5>
 		</div>
-		<div id="collapse-pane-2" class="collapse" role="tabpanel" aria-labelledby="accord2" data-parent="#demo-accordion-collapse">
+		<div id="collapse-pane-3" class="collapse" role="tabpanel" aria-labelledby="accord3" data-parent="#demo-accordion-collapse">
 	       <app-competences></app-competences>
 		   
 		
 	    </div>
 		</div>
 	  <div class="card">
-		<div class="card-header" role="tab" id="accord3">
+		<div class="card-header" role="tab" id="accord4">
 		  <h5 class="mb-0">
-			<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-3" role="button" aria-expanded="false" aria-controls="collapse-pane-3">
+			<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-4" role="button" aria-expanded="false" aria-controls="collapse-pane-4">
 			 CENTRE D'INTERET
 			 <span class="pull-right">
 				<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -86,13 +67,14 @@
 			</h3>
 		  </h5>
 		</div>
-		<div id="collapse-pane-3" class="collapse" role="tabpanel" aria-labelledby="accord3" data-parent="#demo-accordion-collapse">
+		<div id="collapse-pane-4" class="collapse" role="tabpanel" aria-labelledby="accord3" data-parent="#demo-accordion-collapse">
 			<app-interet></app-interet>
+			
 		</div>
 		<div class="card">
-			<div class="card-header" role="tab" id="accord4">
+			<div class="card-header" role="tab" id="accord5">
 			  <h5 class="mb-0">
-				<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-4" role="button" aria-expanded="false" aria-controls="collapse-pane-4">
+				<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-5" role="button" aria-expanded="false" aria-controls="collapse-pane-5">
 				 FORMATION
 				 <span class="pull-right">
 					<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -100,36 +82,14 @@
 				</h3>
 			  </h5>
 			</div>
-			<div id="collapse-pane-4" class="collapse" role="tabpanel" aria-labelledby="accord4" data-parent="#demo-accordion-collapse">
-			  <div class="card-body">
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<h5 class="text-black">Date début:</h5>
-							<input type="date" name="year" id="year" class="form-control" value="" required>					
-					</div>
-					<div class="col-sm-6">
-						<h5 class="text-black">Date fin:</h5>
-							<input type="date" name="year" id="year" class="form-control" value="" required>					
-					</div>							
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<input type="text" name="diplome" id="diplome" class="form-control" placeholder="Diplôme" value="" required>
-													
-					</div>
-					<div class="col-sm-6">
-						<input type="text" name="institute" id="institute" class="form-control" placeholder="Institute" value="" required>	
-						
-					</div>
-					
-				</div>
-				<button type="button"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-			  </div>
+			<div id="collapse-pane-5" class="collapse" role="tabpanel" aria-labelledby="accord4" data-parent="#demo-accordion-collapse">
+			  
+				<app-formation></app-formation>
 			</div>
 			<div class="card">
-				<div class="card-header" role="tab" id="accord5">
+				<div class="card-header" role="tab" id="accord6">
 				  <h5 class="mb-0">
-					<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-5" role="button" aria-expanded="false" aria-controls="collapse-pane-5">
+					<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-6" role="button" aria-expanded="false" aria-controls="collapse-pane-6">
 					 EXPERIENCE
 					 <span class="pull-right">
 						<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -137,38 +97,13 @@
 					</h3>
 				  </h5>
 				</div>
-				<div id="collapse-pane-5" class="collapse" role="tabpanel" aria-labelledby="accord5" data-parent="#demo-accordion-collapse">
-				  <div class="card-body">
-					<div class="form-group row">
-						<div class="col-sm-6">
-							<input type="text" name="poste" id="poste" class="form-control" placeholder="Poste" value="" required>				
-						</div>
-						<div class="col-sm-6">
-							<input type="text" name="société" id="société" class="form-control" placeholder="Société" value="" required>						
-						</div>
-					</div>
-					<div class="form-group row">
-								
-						<div class="col-sm-6">
-							<h5 class="text-black">Date début:</h5>
-							<input type="date" name="year" id="year" class="form-control" value="" required>					
-						</div>
-						<div class="col-sm-6">
-							<h5 class="text-black">Date fin:</h5>
-							<input type="date" name="year" id="year" class="form-control" value="" required>					
-						</div>							
-				</div>
-				<div class="form-group">
-					<textarea class="form-control" rows="10" name="description" placeholder="Description" required></textarea>
-					
-				</div>
-				<button type="button"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
-				  </div>
-				</div>
+				<div id="collapse-pane-6" class="collapse" role="tabpanel" aria-labelledby="accord6" data-parent="#demo-accordion-collapse">
+					<app-experience></app-experience>
+				</div>	
 				<div class="card">
-					<div class="card-header" role="tab" id="accord6">
+					<div class="card-header" role="tab" id="accord7">
 					  <h5 class="mb-0">
-						<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-6" role="button" aria-expanded="false" aria-controls="collapse-pane-6">
+						<h3 class="pt-5 " data-toggle="collapse" href="#collapse-pane-7" role="button" aria-expanded="false" aria-controls="collapse-pane-7">
 						 LANGUES
 						 <span class="pull-right">
 							<i type="button"class="fa fa-edit " aria-hidden="true"></i> 
@@ -176,10 +111,21 @@
 						</h3>
 					  </h5>
 					</div>
-					<div id="collapse-pane-6" class="collapse" role="tabpanel" aria-labelledby="accord6" data-parent="#demo-accordion-collapse">
+					<div id="collapse-pane-7" class="collapse" role="tabpanel" aria-labelledby="accord7" data-parent="#demo-accordion-collapse">
 						<app-langue></app-langue>
 					</div>
 	</div> 
+			</div>
+			</div>
+	  </div></div>
+	  </div>
+	  </div>
+	  <div class="text-center">
+		<button type="submit" class="btn btn-primary"style="font-size:18px;margin-top: 20px;" >
+		  <i class="bi bi-save"></i> Save CV
+		</button>
+	  </div>
+	</form>
 	
 </div>
 

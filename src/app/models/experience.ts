@@ -1,9 +1,11 @@
+import { Model_cv } from "./model_cv";
+
 export class Experience{
-    id?: Number;
-    date_deb?: Date;
-    date_fin?: Date;
-    nom_entreprise?: String;
+    
+    dateDeb?: Date;
+    dateFin?: Date;
+    entreprise?: String;
     poste?: String;
-    region?: String;
     description?: String;
+    cv?: Model_cv
 }

@@ -16,6 +16,8 @@ export class FileUpComponent implements OnInit{
   Competence: any[] = [];
   Interet: any[] = [];
   Langue: any[] = [];
+  Experience: any[] = [];
+  Formation: any[] = [];
   images: any
   constructor(private toastr: ToastrService,private http : HttpClient, private dialog: MatDialog, private router: Router){}
   ngOnInit(): void {
@@ -50,21 +52,29 @@ export class FileUpComponent implements OnInit{
        
       this.Contact=response.contact
       this.Competence=response.competences||response.compétences
-      this.Interet=response.centre||response.hobbies
+      this.Interet=response.centre||response.hobbies||response.centres
       this.Langue=response.langues
+      this.Experience=response.experience||response.experiences
+      this.Formation=response.formation
       let data= JSON.stringify(this.Contact)
       let competence= JSON.stringify(this.Competence)
       let interet=JSON.stringify(this.Interet)
       let langue=JSON.stringify(this.Langue)
+      let experience=JSON.stringify(this.Experience)
+      let formation=JSON.stringify(this.Formation)
       localStorage.setItem("contact",data);
       localStorage.setItem("competence",competence);
       localStorage.setItem("interet",interet);
       localStorage.setItem("langue",langue);
+      localStorage.setItem("experience",experience);
+      localStorage.setItem("formation",formation);
       this.router.navigate(['/cv']);
       console.log('response receved is ', this.Contact);
       console.log('skills are ', this.Competence);
       console.log('hobbies are', this.Interet);
       console.log('languages are',this.Langue);
+      console.log('Experiences are',this.Experience);
+      console.log('Formation is',this.Formation);
      },err =>{
       console.log(err)
      })

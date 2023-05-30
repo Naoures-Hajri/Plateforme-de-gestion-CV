@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { Contact } from 'src/app/models/Contact';
@@ -11,7 +11,9 @@ import { CrudCVService } from 'src/app/service/crud-cv.service';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
+  @Output() contactData: EventEmitter<Contact> = new EventEmitter<Contact>();
   contactForm:FormGroup;
+ 
   contact: string[] = [] ;
  
   
@@ -50,6 +52,8 @@ export class ContactComponent {
         res => {
           
           console.log(res);
+            // Emit the contact data
+          this.contactData.emit(contact1);
         
           setTimeout(() => {
             this.toast.success({ detail: 'Contact ajouté avec succès.', summary: 'Succès' });
@@ -64,19 +68,24 @@ export class ContactComponent {
       );
     }
   }
-
+  getContactData(): Contact {
+    const data = this.contactForm.value;
+    return new Contact(data.tel, data.mail, data.adresse);
+  }
   ngOnInit() {
 
   
-   this.contact=JSON.parse(localStorage.getItem('contact')||' ')
-    this.contactForm.patchValue({
-      tel:this.contact.find(num=>num.match('[0-9]*')),
-      
-      mail:this.contact.find(mail=>mail.match('@')),
-      
-      adresse:this.contact[2],
-    })
-   
-
-  }
+    this.contact=JSON.parse(localStorage.getItem('contact')||' ')
+     this.contactForm.patchValue({
+       tel:this.contact.find(num=>num.match('[0-9]*')),
+       
+       mail:this.contact.find(mail=>mail.match('@')),
+       
+       adresse:this.contact[2],
+       cv:null
+     })
+    
+ 
+   }
+  
 }

@@ -1,0 +1,19 @@
+p, .more, .form-control, .readlink, .readmores, li, td{
+    color: #4b4b4b !important;
+	font-size: 15.96px !important;
+	font-weight: 500 !important;
+}
+.experience-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .experience-index {
+    background-color: #ccc;
+    color: #4b4b4b;
+    padding: 10px;
+    font-size: 15.96px !important;
+	font-weight: 500 !important;
+  }
+  
+  

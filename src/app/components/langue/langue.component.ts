@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Langue } from 'src/app/models/Langue';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -31,8 +31,8 @@ export class LangueComponent {
   }
   newBlocLangue(): FormGroup {
     return this.fb.group({
-      newL: '',
-      newN: '',
+      newL: ['', Validators.required],
+      newN: ['', Validators.required]
     });
   }
   addNewBlock() {
@@ -40,14 +40,18 @@ export class LangueComponent {
       langue: ['', Validators.required],
       niveau: ['', Validators.required]
     });
-    this.existingTitre.push(newBlock.get('langue')); // Ajoute le contrôle 'langue' au tableau 'titre'
-    this.existingNiveau.push(newBlock.get('niveau'));
+    this.existingTitre.push(newBlock); // Ajoute le contrôle 'langue' au tableau 'titre'
+    console.log(this.existingTitre.controls);
   
-    console.log(this.existingTitre.controls); // Affiche les contrôles dans la console
+    
   }
   
   delete(index: number) {
     this.existingTitre.removeAt(index);
+    this.existingNiveau.removeAt(index);
+  }
+  addNewBlocLangue() {
+    this.newBloc.push(this.newBlocLangue());
   }
   ngOnInit() {
     this.storedLangue = JSON.parse(localStorage.getItem('langue') || '[]');
@@ -69,19 +73,34 @@ export class LangueComponent {
       });
       return;
     }
+    if (this.newBloc.invalid) {
+      this.toast.info({
+        detail: 'Veuillez remplir tous les champs du nouveau bloc.',
+        summary: 'Erreur'
+      });
+      return;
+    }
   
-    const langues: Langue[] = this.langueForm.value.titre.map((langue: any) => {
-      return {
-        titre: langue.titre,
-        niveau: langue.niveau
-      };
-    });
+    const langues: Langue[] = [
+      ...this.langueForm.value.titre.map((langue: any) => {
+        return {
+          langue: langue.titre,
+          niveau: langue.niveau
+        };
+      }),
+      ...this.langueForm.value.newBloc.map((bloc: any) => {
+        return {
+          langue: bloc.newL,
+          niveau: bloc.newN
+        };
+      })
+    ];
   
     // Save the data to localStorage
     localStorage.setItem('langue', JSON.stringify(langues));
   
     // Save the data
-    this.service.saveLangue(langues).subscribe(
+    this.service.saveLangue(this.langueForm.value.titre).subscribe(
       res => {
         console.log(res);
         setTimeout(() => {
@@ -101,11 +120,6 @@ export class LangueComponent {
     );
   }
    
-  
- 
-  
-  
-
 
   
 }
