@@ -1,5 +1,5 @@
 module.exports=app =>{
-    const contact = require("../controller/crudContact.js")
+    const contact = require("../controller/crudContact")
     var router = require("express").Router()
 //create new Contact
 router.post("/createCont", contact.createcontact)

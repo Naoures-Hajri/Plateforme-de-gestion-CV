@@ -10,8 +10,11 @@ app.use(cors())
 app.use(express.json())
 // Parse JSON bodies
 app.use(bodyParser.json());
+
 // Parse URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
+// Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
 require("./routes/contact.routes")(app);
 require('./routes/competence.routes')(app);
 require('./routes/centreInteret.routes')(app);

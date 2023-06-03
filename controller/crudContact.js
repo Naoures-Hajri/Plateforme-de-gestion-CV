@@ -1,6 +1,14 @@
 
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express');
+
+const app = express();
 
 const contacts = require('../model/contact')
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 exports.findallC= async(req,res)=>{
     try{
     await contacts.find({})
@@ -9,21 +17,30 @@ exports.findallC= async(req,res)=>{
         console.log(err)
     }
 }
-exports.createcontact = async(req, res) => {
-    try{
-    let contact = new contacts({
-       tel: req.body.tel,
-       mail: req.body.mail,
-       adresse:req.body.adresse,
-    });
-    await contact.save();
-    
-    console.log("Save effectué avec succés!")
-    res.json({contact})
-    }catch(err){
-        console.log(err)
+exports.createcontact = async (req, res) => {
+    try {
+      console.log('Request body:', req.body); 
+      const { contactId,tel, mail, adresse } = req.body;
+  
+      // Create a new instance of the Contact model
+      const newContact = new contacts({
+    contactId,
+        tel,
+        mail,
+        adresse
+      });
+  
+      // Save the contact to the database
+      const savedContact = await newContact.save();
+  
+      console.log("Save effectué avec succès!");
+      res.json({ contactId: savedContact._id});
+    } catch (error) {
+      console.error('Error saving contact:', error);
+      res.status(500).json({ error: 'Failed to save contact' });
     }
-}
+  };
+
 exports.deleteContact = async(req, res) => {
     try{
         await contacts.findOneAndDelete({_id:req.params.id});
@@ -43,3 +60,4 @@ exports.updateContact = async(req, res) => {
     }
 
 }
+
