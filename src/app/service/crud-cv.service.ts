@@ -95,7 +95,7 @@ saveEntete(entete:Entete):Observable<Entete>{
 
 
 //**********************************CV */
-saveCV(cvData:Model_cv):Observable<Model_cv>{
-  return this.http.post<Model_cv>(this.cvUrl+"/createCV",cvData)
+saveCV(cvData: Model_cv): Observable<Model_cv> {
+  return this.http.post<Model_cv>(this.cvUrl+"/createCV", cvData);
 }
 }

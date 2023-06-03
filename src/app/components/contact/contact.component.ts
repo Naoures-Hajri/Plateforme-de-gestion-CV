@@ -11,8 +11,10 @@ import { CrudCVService } from 'src/app/service/crud-cv.service';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
-  @Output() contactData: EventEmitter<Contact> = new EventEmitter<Contact>();
   contactForm:FormGroup;
+  @Output() contactData: EventEmitter<String> = new EventEmitter<String>();
+
+
  
   contact: string[] = [] ;
  
@@ -41,7 +43,7 @@ export class ContactComponent {
   saveContact() {
     let data = this.contactForm.value;
     console.log(data);
-    let contact1 = new Contact(data.tel, data.mail, data.adresse);
+    let contact1= new Contact(undefined,data.tel,data.mail,data.adresse);
   
     if (data.tel == 0 || data.mail == 0 || data.adresse == 0) {
       this.toast.info({detail:'err msg !! ',
@@ -52,8 +54,10 @@ export class ContactComponent {
         res => {
           
           console.log(res);
-            // Emit the contact data
-          this.contactData.emit(contact1);
+        console.log('Emitting contactId:', res);
+        this.contactData.emit(res.contactId); 
+
+         
         
           setTimeout(() => {
             this.toast.success({ detail: 'Contact ajouté avec succès.', summary: 'Succès' });
@@ -68,10 +72,7 @@ export class ContactComponent {
       );
     }
   }
-  getContactData(): Contact {
-    const data = this.contactForm.value;
-    return new Contact(data.tel, data.mail, data.adresse);
-  }
+
   ngOnInit() {
 
   

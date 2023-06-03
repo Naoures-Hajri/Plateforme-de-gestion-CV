@@ -6,78 +6,81 @@ import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Contact } from 'src/app/models/Contact';
 import { ContactComponent } from '../contact/contact.component';
+
 @Component({
   selector: 'app-create-cv',
   templateUrl: './create-cv.component.html',
   styleUrls: ['./create-cv.component.css']
 })
 export class CreateCVComponent {
-  @ViewChild('contactComponent',{ static: false })
-  contactComponent!: ContactComponent;
-
-  cvForm!: FormGroup; 
-  cvData: Model_cv | undefined;
-  constructor(private fb: FormBuilder, private service: CrudCVService,private toast: NgToastService){
-    console.log('CreateCVComponent instantiated');
-
-  }
-  // Function to handle the emitted contact data from the child component
-  handleContactData(contact1: Contact): void {
-    console.log('handleContactData called');
-    console.log('Received contact data:', contact1);
-    this.cvData = {
-      titre: 'tttttttttttt',
-      entete: this.cvForm.get('entete')?.value,
-      contact: contact1,
-      langue: this.cvForm.get('langue')?.value,
-      competence: this.cvForm.get('competence')?.value,
-      experience: this.cvForm.get('experience')?.value,
-      formation: this.cvForm.get('formation')?.value,
-      centreInteret: this.cvForm.get('centreInteret')?.value
-    };
-
-    // Call the saveCV() function with the updated cvData object
-    this.saveCV();
-  }
+  @ViewChild(ContactComponent) contactComponent!: ContactComponent;
+  cvForm!: FormGroup;
+  contactId!: String; // Add a property to store the contactId
+  cvData:  Model_cv = new Model_cv(); // Object to store the CV data
   
 
-
-
-  saveCV(): void {
-    if (!this.cvData) {
-      return;
-    }
-    this.service.saveCV(this.cvData).subscribe(
-      (res) => {
-        console.log(res);
-        // CV saved successfully
-        this.toast.success({ detail: 'CV ajoutée avec succès.', summary: 'Succès' });
-      },
-      (cvSaveError) => {
-        // Error saving the CV
-        console.error(cvSaveError);
-        this.toast.error({ detail: 'Erreur lors de l\'enregistrement du CV.', summary: 'err msg !!' });
-      }
-    );
+  constructor(private cvService: CrudCVService, private fb: FormBuilder) {}
+  saveContact() {
+    this.contactComponent.saveContact(); // Appeler la méthode saveContact() du composant ContactComponent
   }
 
+  handleContactData(contactId: String): void {
+    this.contactId = contactId;
+    console.log('ContactId received:', this.contactId);
+  }
+  
+  
+
+  saveCV() {
+    console.log('ContactId used:', this.contactId);
+   
+  
+    // Assigner les valeurs des champs de formulaire à cvData
+    this.cvData.titre = this.cvForm.value.titre;
+    this.cvData.enteteId = this.cvForm.value.entete || null;
+    this.cvData.contactId = this.contactId;
+    this.cvData.experienceId = this.cvForm.value.experience || null;
+    this.cvData.formationId = this.cvForm.value.formation || null;
+    this.cvData.langueId = this.cvForm.value.langue || null;
+    this.cvData.competenceId = this.cvForm.value.competence || null;
+    this.cvData.centreInteretId = this.cvForm.value.centreInteret || null;
+  
+    const cvDataWithContactData = {
+      titre: this.cvData.titre,
+      enteteId: this.cvData.enteteId,
+      contactId: this.cvData.contactId,
+      experienceId: this.cvData.experienceId,
+      formationId: this.cvData.formationId,
+      langueId: this.cvData.langueId,
+      competenceId: this.cvData.competenceId,
+      centreInteretId: this.cvData.centreInteretId
+    };
+  
+    this.cvService.saveCV(cvDataWithContactData)
+      .subscribe(
+        (response) => {
+          // Handle successful response
+          console.log('CV saved successfully:', response);
+        },
+        (error) => {
+          // Handle error response
+          console.error('Error saving CV:', error);
+        }
+      );
+  }
   ngOnInit(): void {
     this.cvForm = this.fb.group({
-      entete: '',
-      contact: this.fb.group({
-        tel: '',
-        mail: '',
-        adresse: ''
-      }),
-      langue: '',
-      competence: '',
-      experience: '',
-      formation: '',
-      centreInteret: ''
+      titre:'ttttt',
+      entete: [''],
+      langue: [''],
+      competence: [''],
+      experience: [''],
+      formation: [''],
+      centreInteret: ['']
     });
-    console.log('cvForm initialized:', this.cvForm);
   }
-}
+  
+}  
   
 
   
