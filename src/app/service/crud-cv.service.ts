@@ -62,7 +62,7 @@ saveInteret(interet:Interet):Observable<Interet>{
 
 //**********************************Langue */
 saveLangue(langues:Langue[]):Observable<Langue[]>{
-  console.log('yass',langues)
+  console.log('langues',langues)
   return this.http.post<Langue[]>(this.langueUrl+"/createLangue",langues)
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Entete } from 'src/app/models/Entete';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
@@ -9,11 +9,11 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./entete.component.css']
 })
 export class EnteteComponent {
-  
+  @Output() enteteData: EventEmitter<String> = new EventEmitter<String>();
   message?:String
   userFile: any
   imagePath: any
-  imgURL: any
+  imgURL: any="https://i.ibb.co/g9gGYPX/avatar-g177d581fb-640.png"
  
   enteteForm:FormGroup
   constructor(private fb:FormBuilder,private service: CrudCVService,private toast: NgToastService){
@@ -64,7 +64,7 @@ export class EnteteComponent {
   saveEntete() {
     let data = this.enteteForm.value;
     console.log(data);
-    let entete = new Entete(data.image, data.nom, data.prenom, data.profession);
+    let entete = new Entete(undefined,data.image, data.nom, data.prenom, data.profession);
     if (this.enteteForm.invalid) {
       this.toast.info({ detail: 'Veuillez remplir tous les champs.', summary: 'err msg !!' });
       return;
@@ -73,7 +73,8 @@ export class EnteteComponent {
     this.service.saveEntete(entete).subscribe(
       res => {
         console.log(res);
-     
+        console.log('Emitting enteteId:', res);
+        this.enteteData.emit(res.enteteId); 
         setTimeout(() => {
           this.toast.success({ detail: 'Entete ajoutée avec succès.', summary: 'Succès' });
         }, 1000);

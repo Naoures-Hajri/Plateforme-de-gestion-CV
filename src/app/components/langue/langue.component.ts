@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Langue } from 'src/app/models/Langue';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
@@ -9,7 +9,7 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./langue.component.css']
 })
 export class LangueComponent {
-  
+  @Output() langueData: EventEmitter<String> = new EventEmitter<String>();  
   
   langueForm: FormGroup;
   storedLangue:Langue[]=[];
@@ -86,15 +86,17 @@ export class LangueComponent {
   
     // Save the data
     this.service.saveLangue(this.langueForm.value.titre).subscribe(
-      res => {
-        console.log(res);
+      (res: any) => {
+        if (res && res._id) {
+          console.log('Emitting _id:', res._id);
+          this.langueData.emit(res._id);
         setTimeout(() => {
           this.toast.success({
             detail: 'Langue ajoutée avec succès.',
             summary: 'Succès'
           });
         }, 1000);
-      },
+      }},
       err => {
         console.error(err);
         this.toast.error({
@@ -106,5 +108,5 @@ export class LangueComponent {
   }
    
 
-  
-}
+
+  }

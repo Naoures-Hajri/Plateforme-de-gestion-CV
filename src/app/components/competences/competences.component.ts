@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder,FormArray, FormGroup } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { Competence } from 'src/app/models/Competence';
@@ -13,7 +13,7 @@ import { forkJoin,Observable, Observer } from 'rxjs';
 })
 export class CompetencesComponent implements OnInit{
 
- 
+  @Output() competenceData: EventEmitter<String> = new EventEmitter<String>();
  
   comp:string[]=['']
  
@@ -72,7 +72,7 @@ export class CompetencesComponent implements OnInit{
     const newValues = this.compForm.get('newComp')?.value;
     this.comp = [...existingValues, ...newValues.map((v: { compt: string }) => v.compt)];
   
-    let competence1 = new Competence(this.comp);
+    let competence1 = new Competence(undefined,this.comp);
     console.log(competence1);
   
     const saveCompetence$ = this.service.saveCompetence(competence1);
@@ -85,6 +85,8 @@ export class CompetencesComponent implements OnInit{
     forkJoin([saveCompetence$, updateLocalStorage$]).subscribe(
       ([saveRes]) => {
         console.log(saveRes);
+        console.log('Emitting competenceId:', saveRes);
+        this.competenceData.emit(saveRes.competenceId); 
         setTimeout(() => {
           this.toast.success({ detail: 'Compétence ajoutée avec succès.', summary: 'Succès' });
         }, 1000);

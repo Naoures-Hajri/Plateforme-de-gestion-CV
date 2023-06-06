@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 
 import { NgToastService } from 'ng-angular-popup';
@@ -10,6 +10,7 @@ import { CrudCVService } from 'src/app/service/crud-cv.service';
   styleUrls: ['./experience.component.css']
 })
 export class ExperienceComponent {
+  @Output() experienceData: EventEmitter<String> = new EventEmitter<String>();  
   storedExperience: string[] = [];
   blocks: any[] = [];
   block: any = {};
@@ -99,8 +100,10 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
       poste: block.poste,
       description: block.description
     }));  
-    this.service.saveExperience(experiences).subscribe (res => {
-      console.log(res);
+    this.service.saveExperience(experiences).subscribe ( (res: any) => {
+      if (res && res._id) {
+        console.log('Emitting _id:', res._id);
+        this.experienceData.emit(res._id);}
       setTimeout(() => {
         this.toast.success({
           detail: 'Experience ajoutée avec succès.',

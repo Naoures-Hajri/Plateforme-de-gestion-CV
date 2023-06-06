@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Formation } from 'src/app/models/Formation';
@@ -8,6 +8,7 @@ import { Formation } from 'src/app/models/Formation';
   styleUrls: ['./formation.component.css']
 })
 export class FormationComponent {
+  @Output() formationData: EventEmitter<String> = new EventEmitter<String>();  
   storedFormation: string[] = [];
   blocks: any[] = [];
   block: any = {};
@@ -90,8 +91,10 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
       diplome: block.diplome,
       etablissement: block.etablissement
     }));  
-    this.service.saveFormation(formations).subscribe (res => {
-      console.log(res);
+    this.service.saveFormation(formations).subscribe ((res: any) => {
+      if (res && res._id) {
+        console.log('Emitting _id:', res._id);
+        this.formationData.emit(res._id);}
       setTimeout(() => {
         this.toast.success({
           detail: 'Formation ajoutée avec succès.',

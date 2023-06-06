@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -12,7 +12,7 @@ import { forkJoin, Observable, Observer } from 'rxjs';
   styleUrls: ['./interet.component.css']
 })
 export class InteretComponent {
-
+  @Output() interetData: EventEmitter<String> = new EventEmitter<String>();
   centreInt: string[] = [];
 
   intForm: FormGroup;
@@ -66,7 +66,7 @@ export class InteretComponent {
     const newValues = this.intForm.get('newInt')?.value;
     this.centreInt = [...existingValues, ...newValues.map((v: { inter: string }) => v.inter)];
 
-    let interet1 = new Interet(this.centreInt);
+    let interet1 = new Interet(undefined,this.centreInt);
     console.log(interet1);
 
     const saveInteret$ = this.service.saveInteret(interet1);
@@ -79,6 +79,8 @@ export class InteretComponent {
     forkJoin([saveInteret$, updateLocalStorage$]).subscribe(
       ([saveRes]) => {
         console.log(saveRes);
+        console.log('Emitting interetId:', saveRes);
+        this.interetData.emit(saveRes.interetId); 
         setTimeout(() => {
           this.toast.success({ detail: 'Interet ajoutée avec succès.', summary: 'Succès' });
         }, 1000);
