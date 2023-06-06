@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CV = mongoose.model(
     'CV',
     new mongoose.Schema({
-        titre : String,
+        
             
         entete: {
             type: mongoose.Schema.Types.ObjectId,

@@ -8,18 +8,28 @@ exports.findallEnt= async(req,res)=>{
     }
 }
 exports.createEntete = async(req, res) => {
-    try{
+        try {
+            console.log('Request body:', req.body); 
+            const { enteteId,image, nom, prenom, profession } = req.body;
     let entete = new entetes({
-       image: req.body.image,
-       nom: req.body.nom,
-       prenom:req.body.prenom,
-       profession:req.body.profession,
+       enteteId,
+       image,
+       nom,
+       prenom,
+       profession
     });
-    await entete.save();
+    const savedEntete= await entete.save();
     
     console.log("Save effectué avec succés!")
-    res.json({entete})
-    }catch(err){
-        console.log(err)
-    }
+    res.json({enteteId: savedEntete._id})
+    } catch(err){
+        console.error('Error saving entete:', error);
+        res.status(500).json({ error: 'Failed to save entete' });
+      }
+
+
 }
+
+
+
+

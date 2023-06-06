@@ -11,8 +11,9 @@ exports.createlangue = async(req, res) => {
     
     
     const langue = new langues({langue:req.body});
-    try{const e1 = await langue.save()
-        res.status(200).json({langue})
+    try{const savedLangue = await langue.save()
+        res.json({ _id: savedLangue._id});
+
 
     }catch(err){
         console.log(err)

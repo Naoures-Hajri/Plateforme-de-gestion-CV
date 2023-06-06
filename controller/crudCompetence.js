@@ -1,14 +1,17 @@
 const competences = require('../model/competence')
 exports.createComp = async(req, res) => {
     try{
-    let competence = new competences({
-       competence: req.body.competence
+        console.log('Request body:', req.body); 
+        const { competenceId, competence} = req.body;
+    let newCompetence = new competences({
+        competenceId,
+        competence
       
     });
-    await competence.save();
+    const savedCompetence=await newCompetence.save();
     
     console.log("Save effectué avec succés!")
-    res.json({competence})
+    res.json({competenceId:savedCompetence._id})
     }catch(err){
         console.log(err)
     }
