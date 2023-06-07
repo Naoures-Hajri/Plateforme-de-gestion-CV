@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./create-cv.component.css']
 })
 export class CreateCVComponent {
+ 
   cvForm!: FormGroup;
   contactId!: String; // Add a property to store the contactId
   enteteId!: String; // Add a property to store the enteteId
@@ -57,7 +58,15 @@ export class CreateCVComponent {
   }
   saveCV() {
     
-   
+    if (
+      this.contactId &&
+      this.enteteId &&
+      this.competenceId &&
+      this.langueId &&
+      this.centreInteretId &&
+      this.experienceId &&
+      this.formationId
+    )
   
     // Assigner les valeurs des champs de formulaire à cvData
     

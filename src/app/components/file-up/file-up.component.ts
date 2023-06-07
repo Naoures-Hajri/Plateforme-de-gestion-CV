@@ -75,6 +75,7 @@ export class FileUpComponent implements OnInit{
       console.log('languages are',this.Langue);
       console.log('Experiences are',this.Experience);
       console.log('Formation is',this.Formation);
+      this.close()
      },err =>{
       console.log(err)
      })

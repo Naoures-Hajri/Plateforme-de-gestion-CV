@@ -42,25 +42,20 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
     for (let index = 0; index < this.storedExperience.length; index++) {
       const line = this.storedExperience[index].trim();
     
-      if (/^\d+\s*-/.test(line)) {
+      if (line.startsWith('Stage') || line.startsWith('Projet')) {
         if (Object.keys(block).length > 0) {
           blocks.push(block);
         }
     
-        const dateMatch = line.match(/^(\d+)\s*-\s*(.*)$/);
-        if (dateMatch) {
-          const dateDeb = new Date(dateMatch[1].trim());
-          const dateFin = new Date(dateMatch[2].trim());
-          block = {
-            dateDeb: dateDeb,
-            dateFin: dateFin,
-            entreprise: '',
-            poste: '',
-            region: '',
-            description: []
-          };
-          linesProcessed = 0; // Réinitialiser le compteur pour chaque nouveau bloc
-        }
+        block = {
+          dateDeb: null,
+          dateFin: null,
+          entreprise: '',
+          poste: line,
+          region: '',
+          description: []
+        };
+        linesProcessed = 0; // Réinitialiser le compteur pour chaque nouveau bloc
       } else {
         if (Object.keys(block).length === 0) {
           continue; // Ignorer les lignes avant le premier bloc
@@ -68,10 +63,11 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
     
         switch (linesProcessed) {
           case 0:
-            block.entreprise = line;
-            break;
-          case 1:
-            block.poste = line;
+            const dateMatch = line.match(/^(\w+\s+\d{4})\s+-\s+(\w+\s+\d{4})$/);
+            if (dateMatch) {
+              block.dateDeb = new Date(dateMatch[1]);
+              block.dateFin = new Date(dateMatch[2]);
+            }
             break;
           default:
             block.description.push(line);
@@ -88,10 +84,25 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
     
     console.log('Blocks:', blocks);
     this.blocks = blocks;
-    
-    
   }
   saveExperience() {
+      // Vérifier si tous les champs sont remplis
+      const areFieldsFilled = this.blocks.every(block =>
+        block.dateDeb !== null &&
+        block.dateFin !== null &&
+        block.entreprise !== null &&
+        block.poste !== null &&
+        block.description.length > 0
+      );
+  if (!areFieldsFilled) {
+    // Afficher un message d'erreur ou prendre une autre action appropriée
+    console.log('Tous les champs doivent être remplis');
+    this.toast.error({
+      detail: 'Veuillez remplir les champs manquants',
+      summary: 'Erreur'
+    });
+    return;
+  }
     // Prepare the experience data to be saved
     const experiences: Experience[] = this.blocks.map(block => ({
       dateDeb: block.dateDeb,
@@ -119,6 +130,9 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
       });
     }
   );
+  }
+  updateDate(value: string) {
+    this.block.dateDeb = new Date(value);
   }
   
 }

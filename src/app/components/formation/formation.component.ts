@@ -112,5 +112,7 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
     );
     }
     
-    
+    updateDate(value: string) {
+      this.block.dateDeb = new Date(value);
+    }  
 }
