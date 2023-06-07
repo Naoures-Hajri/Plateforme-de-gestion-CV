@@ -16,12 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Candidature.views import MyDataView
+
 from Candidature.views import file_upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('my-data/', MyDataView.as_view(), name='mydata'),
     path('api/upload/', file_upload, name='file-upload'),
   
 ]
