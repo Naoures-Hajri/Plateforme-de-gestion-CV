@@ -13,7 +13,7 @@ export class EnteteComponent {
   message?:String
   userFile: any
   imagePath: any
-  imgURL: any="https://i.ibb.co/g9gGYPX/avatar-g177d581fb-640.png"
+  imgURL: any="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_100x100_v1.png" 
  
   enteteForm:FormGroup
   constructor(private fb:FormBuilder,private service: CrudCVService,private toast: NgToastService){

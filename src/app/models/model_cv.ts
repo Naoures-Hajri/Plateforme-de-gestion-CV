@@ -1,9 +1,9 @@
 
 export class Model_cv{
     constructor(
-  
+    public cvId?: String,
     public enteteId?: String,
-    public contactId?: String,
+    public contact?: String,
     public formationId?: String,
     public experienceId?: String,
     public competenceId?: String,

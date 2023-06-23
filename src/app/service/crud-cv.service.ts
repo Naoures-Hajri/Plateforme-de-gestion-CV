@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -25,6 +25,7 @@ export class CrudCVService {
   formationUrl="http://localhost:8081/formation"
   enteteUrl="http://localhost:8081/entete"
   cvUrl="http://localhost:8081/cv"
+  newCVUrl="http://localhost:8081/update-pdf-cv"
   constructor(private http: HttpClient ) { }
 
   //***************************Contact */
@@ -97,5 +98,14 @@ saveEntete(entete:Entete):Observable<Entete>{
 //**********************************CV */
 saveCV(cvData: Model_cv): Observable<Model_cv> {
   return this.http.post<Model_cv>(this.cvUrl+"/createCV", cvData);
+}
+
+
+
+
+//**********************************newCV */
+updatePDFCV(cvId: string): Observable<any>{
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post(this.newCVUrl, { cvId }, { headers, responseType: 'blob' });
 }
 }

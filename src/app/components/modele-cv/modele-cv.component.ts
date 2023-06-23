@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+
 
 
 @Component({
@@ -7,12 +8,14 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './modele-cv.component.html',
   styleUrls: ['./modele-cv.component.css']
 })
-export class ModeleCvComponent {
- 
+export class ModeleCvComponent  {
+  imgURL: any='assets/telechargement/model1.pdf';
+  
 
-  constructor() { }
-  ngOnInit() {
- 
+  ngOnInit(): void {
+    console.log("pdf", this.imgURL);
+  
+  
+  
   }
-
 }

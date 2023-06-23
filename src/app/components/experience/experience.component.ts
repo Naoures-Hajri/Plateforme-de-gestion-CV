@@ -34,33 +34,49 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
   ngOnInit() {
     this.storedExperience = JSON.parse(localStorage.getItem('experience') || '[]');
     console.log('Stored Experience:', this.storedExperience);
-  
-    let linesProcessed = 0;
+
     let block: any = {};
-    let blocks: any[] = [];
-    
+    let linesProcessed = 0;
+
     for (let index = 0; index < this.storedExperience.length; index++) {
       const line = this.storedExperience[index].trim();
-    
-      if (line.startsWith('Stage') || line.startsWith('Projet')) {
+
+      if (/^\d+\s*-/.test(line)) {
         if (Object.keys(block).length > 0) {
-          blocks.push(block);
+          this.blocks.push(block);
         }
-    
+
+        const dateMatch = line.match(/^(\d+)\s*-\s*(.*)$/);
+        if (dateMatch) {
+          const dateDeb = new Date(dateMatch[1].trim());
+          const dateFin = new Date(dateMatch[2].trim());
+          block = {
+            dateDeb: dateDeb,
+            dateFin: dateFin,
+            entreprise: '',
+            poste: '',
+            description: []
+          };
+        }
+      } else if (line.startsWith('Stage') || line.startsWith('Projet')) {
+        if (Object.keys(block).length > 0) {
+          this.blocks.push(block);
+        }
+
         block = {
           dateDeb: null,
           dateFin: null,
           entreprise: '',
           poste: line,
-          region: '',
           description: []
         };
+
         linesProcessed = 0; // Réinitialiser le compteur pour chaque nouveau bloc
       } else {
         if (Object.keys(block).length === 0) {
           continue; // Ignorer les lignes avant le premier bloc
         }
-    
+
         switch (linesProcessed) {
           case 0:
             const dateMatch = line.match(/^(\w+\s+\d{4})\s+-\s+(\w+\s+\d{4})$/);
@@ -73,17 +89,16 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
             block.description.push(line);
             break;
         }
-    
+
         linesProcessed++;
       }
     }
-    
+
     if (Object.keys(block).length > 0) {
-      blocks.push(block);
+      this.blocks.push(block);
     }
-    
-    console.log('Blocks:', blocks);
-    this.blocks = blocks;
+
+    console.log('Blocks:', this.blocks);
   }
   saveExperience() {
       // Vérifier si tous les champs sont remplis
@@ -91,13 +106,15 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
         block.dateDeb !== null &&
         block.dateFin !== null &&
         block.entreprise !== null &&
+        block.entreprise.trim() !== '' && // Vérifier si le champ entreprise est vide ou composé uniquement d'espaces
         block.poste !== null &&
+        block.poste.trim() !== '' && // Vérifier si le champ poste est vide ou composé uniquement d'espaces
         block.description.length > 0
       );
   if (!areFieldsFilled) {
     // Afficher un message d'erreur ou prendre une autre action appropriée
     console.log('Tous les champs doivent être remplis');
-    this.toast.error({
+    this.toast.info({
       detail: 'Veuillez remplir les champs manquants',
       summary: 'Erreur'
     });

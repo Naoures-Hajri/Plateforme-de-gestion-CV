@@ -1,2 +1,87 @@
+.container-fluid,
+.container,
+.row,
+.col-md-4,
+.col-md-8 {
+  fill: none;
+}
 
-	
+.left-co {
+  fill: #ffffff;
+}
+
+.left-side {
+  fill: #f1f1f1;
+}
+
+.contact-box .icon,
+.contact-box .detail {
+  fill: #333333;
+}
+
+.ltitle {
+  fill: #333333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-group .col-md-6 h3 {
+  fill: #333333;
+  font-size: 16px;
+}
+
+.form-group .col-md-6 span {
+  fill: #333333;
+  font-size: 16px;
+}
+
+.hoby li {
+  fill: #333333;
+  font-size: 16px;
+}
+
+.rit-cover {
+  fill: #ffffff;
+}
+
+.hotkey h1 {
+  fill: #333333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hotkey small {
+  fill: #333333;
+  font-size: 14px;
+}
+
+.rit-titl {
+  fill: #333333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.work-exp h6 span {
+  fill: #333333;
+  font-size: 16px;
+}
+
+.work-exp i {
+  fill: #333333;
+  font-size: 14px;
+}
+
+.work-exp ul li {
+  fill: #333333;
+  font-size: 14px;
+}
+
+.education-item span {
+  fill: #333333;
+  font-size: 16px;
+}
+
+.education-item {
+  fill: #333333;
+  font-size: 14px;
+}

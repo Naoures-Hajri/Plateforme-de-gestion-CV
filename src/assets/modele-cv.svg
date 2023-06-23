@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+
+  <!-- Sidebar -->
+  <g id="sidebar">
+    <rect x="50" y="50" width="500" height="500" fill="green" stroke="#000000" stroke-width="2" rx="10" ry="10"/>
+    <text x="125" y="100" text-anchor="middle" font-size="24" font-weight="bold">CV</text>
+    <line x1="270" y1="120" x2="700" y2="120" stroke="#000000" stroke-width="1" />
+    <text x="100" y="150" font-size="18" font-weight="bold">Informations personnelles</text>
+    <line x1="100" y1="170" x2="300" y2="170" stroke="#000000" stroke-width="1" />
+    <text x="100" y="190" font-size="16">Nom:</text>
+    <text x="300" y="190" font-size="16">John Doe</text>
+    <text x="100" y="220" font-size="16">Email:</text>
+    <text x="300" y="220" font-size="16">johndoe@example.com</text>
+    <text x="100" y="250" font-size="16">Téléphone:</text>
+    <text x="300" y="250" font-size="16">123-456-7890</text>
+    <text x="100" y="300" font-size="18" font-weight="bold">Expérience professionnelle</text>
+    <line x1="100" y1="320" x2="300" y2="320" stroke="#000000" stroke-width="1" />
+    <text x="100" y="350" font-size="16" font-weight="bold">Poste:</text>
+    <text x="300" y="350" font-size="16">Développeur Web</text>
+    <text x="100" y="380" font-size="16" font-weight="bold">Entreprise:</text>
+    <text x="300" y="380" font-size="16">ABC Company</text>
+    <text x="100" y="410" font-size="16" font-weight="bold">Période:</text>
+    <text x="300" y="410" font-size="16">2010 - 2015</text>
+    <text x="100" y="460" font-size="18" font-weight="bold">Formation</text>
+    <line x1="100" y1="480" x2="300" y2="480" stroke="#000000" stroke-width="1" />
+    <text x="100" y="510" font-size="16" font-weight="bold">Diplôme:</text>
+    <text x="300" y="510" font-size="16">Licence en Informatique</text>
+    <text x="100" y="540" font-size="16" font-weight="bold">Établissement:</text>
+    <text x="300" y="540" font-size="16">Université XYZ</text>
+  </g>
+ </svg> 

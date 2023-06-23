@@ -84,6 +84,25 @@ constructor(private service: CrudCVService, private toast: NgToastService){}
     
   }
   saveFormation() {
+         // Vérifier si tous les champs sont remplis
+         const areFieldsFilled = this.blocks.every(block =>
+          block.dateDeb !== null &&
+          block.dateFin !== null &&
+          block.diplome !== null &&
+          block.diplome.trim() !== '' && // Vérifier si le champ entreprise est vide ou composé uniquement d'espaces
+          block.etablissement !== null &&
+          block.etablissement.trim() !== ''  // Vérifier si le champ poste est vide ou composé uniquement d'espaces
+         
+        );
+    if (!areFieldsFilled) {
+      // Afficher un message d'erreur ou prendre une autre action appropriée
+      console.log('Tous les champs doivent être remplis');
+      this.toast.info({
+        detail: 'Veuillez remplir les champs manquants',
+        summary: 'Erreur'
+      });
+      return;
+    }
     // Prepare the experience data to be saved
     const formations: Formation[] = this.blocks.map(block => ({
       dateDeb: block.dateDeb,

@@ -56,15 +56,20 @@ export class LangueComponent {
   ngOnInit() {
     this.storedLangue = JSON.parse(localStorage.getItem('langue') || '[]');
     console.log(this.storedLangue);
-    
-    this.storedLangue.forEach((langue) => {
-      const langueGroup = this.fb.group({
-        langue: [langue, Validators.required],
-        niveau: ['', Validators.required]
+  
+    if (this.storedLangue.length === 0) {
+      this.addNewBlock(); // Appel à addNewBloc() si le bloc langue est vide
+    } else {
+      this.storedLangue.forEach((langue) => {
+        const langueGroup = this.fb.group({
+          langue: [langue, Validators.required],
+          niveau: ['', Validators.required]
+        });
+        this.existingTitre.push(langueGroup);
       });
-      this.existingTitre.push(langueGroup);
-    });
+    }
   }
+  
   saveLangue() {
     if (this.langueForm.invalid) {
       this.toast.info({

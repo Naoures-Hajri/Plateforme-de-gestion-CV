@@ -1,5 +1,5 @@
 
-import {  Component} from '@angular/core';
+import {  Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Model_cv } from 'src/app/models/model_cv';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './create-cv.component.html',
   styleUrls: ['./create-cv.component.css']
 })
-export class CreateCVComponent {
+export class CreateCVComponent  implements OnInit{
  
   cvForm!: FormGroup;
   contactId!: String; // Add a property to store the contactId
@@ -21,10 +21,14 @@ export class CreateCVComponent {
   centreInteretId!: String; // Add a property to store the interetId
   experienceId!: String; // Add a property to store the experienceId
   formationId!: String; // Add a property to store the formationId
+  cvId!: string;
   cvData:  Model_cv = new Model_cv(); // Object to store the CV data
   
 
   constructor(private cvService: CrudCVService, private fb: FormBuilder) {}
+  ngOnInit(): void {
+    this.cvForm = this.fb.group({});
+  }
 
  
 
@@ -59,6 +63,7 @@ export class CreateCVComponent {
   saveCV() {
     
     if (
+      this.cvId &&
       this.contactId &&
       this.enteteId &&
       this.competenceId &&
@@ -69,57 +74,66 @@ export class CreateCVComponent {
     )
   
     // Assigner les valeurs des champs de formulaire à cvData
-    
+    this.cvData.cvId = this.cvId;
     this.cvData.enteteId = this.enteteId;
-    this.cvData.contactId = this.contactId;
+    this.cvData.contact = this.contactId;
     this.cvData.experienceId = this.experienceId;
     this.cvData.formationId = this.formationId;
     this.cvData.langueId = this.langueId;
     this.cvData.competenceId = this.competenceId;
     this.cvData.centreInteretId = this.centreInteretId;
   
+    
     const cvDataWithData = {
-      
+
       enteteId: this.cvData.enteteId,
-      contactId: this.cvData.contactId,
+      contactId: this.cvData.contact,
       experienceId: this.cvData.experienceId,
       formationId: this.cvData.formationId,
       langueId: this.cvData.langueId,
       competenceId: this.cvData.competenceId,
       centreInteretId: this.cvData.centreInteretId
     };
-  
-    this.cvService.saveCV(cvDataWithData)
-      .subscribe(
-        (response) => {
-          // Handle successful response
-          console.log('CV saved successfully:', response);
-          Swal.fire({
-            icon: 'success',
-            title: 'Succès',
-            html: '<h3>Le CV a été enregistré avec succès.</h3>',
-          });
-        },
-        (error) => {
-          // Handle error response
-          console.error('Error saving CV:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            html: '<h3>Une erreur s\'est produite lors de l\'enregistrement du CV.</h3>',
-          });
-        }
-      );
-  }
-  ngOnInit(): void {
-    this.cvForm = this.fb.group({
-      
-      
-      
-    });
-  }
-  
-}  
+
+    this.cvService.saveCV(cvDataWithData).subscribe(
+      (response:any) => {
+        // Handle successful response
+        console.log('CV saved successfully:', response);
+        console.log('Response:', response);
+        this.cvId = response.cvId; 
+        console.log('cvId',this.cvId)
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          html: '<h3>Le CV a été enregistré avec succès.</h3>',
+        });
+
+        // Generate the new PDF CV
+        if (response.contact) {
+          console.log('Calling updatePDFCV method');
+        this.cvService.updatePDFCV(this.cvId).subscribe(
+          (pdfData) => {
+            // Handle the generated PDF data as needed
+            console.log('PDF CV generated successfully:', pdfData);
+          },
+          (error) => {
+            console.error('Error generating PDF CV:', error);
+          }
+        );
+      }},
+      (error) => {
+        // Handle error response
+        console.error('Error saving CV:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          html: '<h3>Une erreur s\'est produite lors de l\'enregistrement du CV.</h3>',
+        });
+      }
+    );
+  } 
+}
+
   
 
   
