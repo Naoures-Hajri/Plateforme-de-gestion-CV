@@ -6,7 +6,7 @@ const updatePDFCV = async (req, res) => {
     const inputFilePath = 'templates/model1.pdf';
     const outputFilePath = 'output/newCV.pdf';
 
-    const phoneNumberToReplace = '060606';
+    const phoneNumberToReplace = '06 06 06 06 06';
     const newPhoneNumber = '1234567890';
 
     // Read the input PDF file
