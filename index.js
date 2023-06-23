@@ -2,8 +2,10 @@ const mongoose = require('mongoose')
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require("cors")
-
+const uploadFile = require('./routes/file.routes');
+const newCV = require('./routes/newCV.routes');
 const app = express()
+
 const dbUrl="mongodb+srv://admin:admin@cluster0.scwf6qx.mongodb.net/CV?retryWrites=true&w=majority"
 
 app.use(cors())
@@ -15,6 +17,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
+// Utiliser les routes de téléchargement
+app.use(uploadFile);
+app.use(newCV);
 require("./routes/contact.routes")(app);
 require('./routes/competence.routes')(app);
 require('./routes/centreInteret.routes')(app);
@@ -23,6 +28,7 @@ require('./routes/experience.routes')(app);
 require('./routes/formation.routes')(app);
 require('./routes/entete.routes')(app);
 require('./routes/cv.routes')(app);
+
 //set port, listen for request 
 const Port = process.env.Port || 8081;
 app.listen(Port, ()=>{

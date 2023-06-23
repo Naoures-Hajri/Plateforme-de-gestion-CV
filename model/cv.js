@@ -4,15 +4,15 @@ const CV = mongoose.model(
     'CV',
     new mongoose.Schema({
         
-            
+        cvId: String,    
         entete: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Entete'
           },
         contact: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Contact',
-            unique: true, // Ensure uniqueness for the contact field
+            ref: 'Contact'
+            
           },
         experience: {
             type: mongoose.Schema.Types.ObjectId,

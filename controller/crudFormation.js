@@ -11,8 +11,8 @@ exports.createFormation = async(req, res) => {
     
     
     const formation = new formations({formation:req.body});
-    try{const e1 = await formation.save()
-        res.status(200).json({formation})
+    try{const savedFormation = await formation.save()
+        res.status(200).json({_id:savedFormation._id})
 
     }catch(err){
         console.log(err)

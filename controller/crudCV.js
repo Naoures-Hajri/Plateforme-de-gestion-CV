@@ -95,11 +95,14 @@ exports.createCV = async (req, res) => {
   
       // Save the CV to the database
       const savedCV = await newCV.save();
-      // Fetch the contact using the contactId
-     const savedContact = await contacts.findById(savedCV.contactId);
+        // Update the savedCV object with the cvId
+    const cvId = savedCV._id;
 
-     // Log the contact or use it as needed
-       console.log('Saved Contact:', savedContact);
+    // Update the savedCV object with cvId
+    savedCV.cvId = cvId;
+
+    // Save the updated savedCV object
+    await savedCV.save();
 
       // CV saved successfully
       return res.status(200).json(savedCV);
