@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors")
 const uploadFile = require('./routes/file.routes');
 const newCV = require('./routes/newCV.routes');
+const path = require('path');
 const app = express()
 
 const dbUrl="mongodb+srv://admin:admin@cluster0.scwf6qx.mongodb.net/CV?retryWrites=true&w=majority"
@@ -28,6 +29,15 @@ require('./routes/experience.routes')(app);
 require('./routes/formation.routes')(app);
 require('./routes/entete.routes')(app);
 require('./routes/cv.routes')(app);
+
+
+// Route pour servir le fichier HTML du modèle de CV
+app.get('/api/cv', (req, res) => {
+  const templatePath = path.join(__dirname, 'templates/resume1.html'); // Chemin du modèle de CV HTML
+
+  // Lire le contenu du fichier HTML et le renvoyer en tant que réponse
+  res.sendFile(templatePath);
+});
 
 //set port, listen for request 
 const Port = process.env.Port || 8081;

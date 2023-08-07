@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Contact = mongoose.model(
     'Contact',
     new mongoose.Schema({
-        contactId : String,
+        contactId : mongoose.Types.ObjectId,
         tel : String,
             
         mail : String,

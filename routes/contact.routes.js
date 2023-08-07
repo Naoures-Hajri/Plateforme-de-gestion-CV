@@ -9,6 +9,7 @@ router.get("/allContact",contact.findallC)
 router.delete("/deleteContact/:id",contact.deleteContact)
 //update Contact
 router.put('/updateContact/:id',contact.updateContact)
-
+//get ContactByID
+router.get("/getContact/:id",contact.getContactByID)
 app.use("/contact" , router)
 };

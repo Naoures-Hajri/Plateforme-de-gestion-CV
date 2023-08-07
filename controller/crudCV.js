@@ -1,5 +1,3 @@
-
-
 const CV = require('../model/cv');
 const Entete = require('../model/entete');
 const contacts = require('../model/contact');
@@ -112,7 +110,48 @@ exports.createCV = async (req, res) => {
     }
     
   };
+  exports.getCVById = async (req, res) => {
+    try {
+      const cvId = req.params.id;
+      // Find the CV by its ID and populate its related entities
+      const cv = await CV.findById(cvId)
+        .populate({
+          path: 'entete',
+          model: 'Entete'
+        })
+        .populate({
+          path: 'contact',
+          model: 'Contact'
+        })
+        .populate({
+          path: 'experience',
+          model: 'Experience'
+        })
+        .populate({
+          path: 'formation',
+          model: 'Formation'
+        })
+        .populate({
+          path: 'langue',
+          model: 'Langue'
+        })
+        .populate({
+          path: 'competence',
+          model: 'Competence'
+        })
+        .populate({
+          path: 'centreInteret',
+          model: 'CentreInteret'
+        });
   
-
+      if (!cv) {
+        return res.status(404).json({ error: 'CV not found' });
+      }
   
-  
+      // CV retrieved successfully
+      return res.status(200).json(cv);
+    } catch (error) {
+      console.error('Error retrieving CV:', error);
+      return res.status(500).json({ error: 'Failed to retrieve CV' });
+    }
+  };

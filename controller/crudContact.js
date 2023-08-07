@@ -1,4 +1,3 @@
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
@@ -60,4 +59,18 @@ exports.updateContact = async(req, res) => {
     }
 
 }
+exports.getContactByID = async (req, res) => {
+    try {
+      const contact = await contacts.findById(req.params.id);
+  
+      if (!contact) {
+        return res.status(404).json({ message: 'Contact not found' });
+      }
+  
+      res.status(200).json({ contact });
+    } catch (error) {
+      console.error('Error fetching contact:', error);
+      res.status(500).json({ message: 'Error fetching contact' });
+    }
+  };
 

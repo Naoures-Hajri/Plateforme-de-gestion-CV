@@ -16,3 +16,17 @@ exports.createComp = async(req, res) => {
         console.log(err)
     }
 }
+exports.getCompetenceByID = async (req, res) => {
+    try {
+      const competence = await competences.findById(req.params.id);
+  
+      if (!competence) {
+        return res.status(404).json({ message: 'Competence not found' });
+      }
+  
+      res.status(200).json({ competence });
+    } catch (error) {
+      console.error('Error fetching competence:', error);
+      res.status(500).json({ message: 'Error fetching competence' });
+    }
+  };

@@ -10,7 +10,7 @@ exports.findallC= async(req,res)=>{
 exports.createlangue = async(req, res) => {
     
     
-    const langue = new langues({langue:req.body});
+  /*   const langue = new langues({langue:req.body});
     try{const savedLangue = await langue.save()
         res.json({ _id: savedLangue._id});
 
@@ -18,8 +18,23 @@ exports.createlangue = async(req, res) => {
     }catch(err){
         console.log(err)
         res.send('Error' + err)
-    }
+    } */
+   
+    try{
+        console.log('Request body:', req.body); 
+        const { langueId, langue} = req.body;
+    let newLangue = new langues({
+        langueId,
+        langue
+      
+    });
+    const savedLangue=await newLangue.save();
     
+    console.log("Save effectué avec succés!")
+    res.json({langueId:savedLangue._id})
+    }catch(err){
+        console.log(err)
+    }
     
     
     

@@ -3,13 +3,9 @@ const mongoose = require('mongoose');
 const Langue = mongoose.model(
     'Langue',
     new mongoose.Schema({
+        langueId : String,
         langue:[{
-            langue : {type:String},
-            
-        niveau : {type:String},
-            
-        
-             }]
+            type:String}]
             })
 );
 module.exports=Langue;
