@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,throwError  } from 'rxjs';
 
 
 import { Contact } from 'src/app/models/Contact';
@@ -11,7 +11,8 @@ import { Experience } from '../models/Experience';
 import { Formation } from '../models/Formation';
 import { Entete } from '../models/Entete';
 import { Model_cv } from '../models/model_cv';
-
+import { CVData } from '../models/cvData';
+import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -36,13 +37,19 @@ export class CrudCVService {
   
  }
 
-
+ getContactByID(contactId: string): Observable<Contact> {
+  return this.http.get<Contact>(`${this.contactUrl}/getContact/${contactId}`);
+}
 
  //*******************************Competence */
  saveCompetence(competence:Competence):Observable<Competence>{
   
   return this.http.post<Competence>(this.competenceUrl+"/createComp",competence);
 
+}
+
+getCompetencetByID(competenceId: String): Observable<String[]> {
+  return this.http.get<String[]>(`${this.competenceUrl}/getCompetence/${competenceId}`);
 }
 
 
@@ -62,9 +69,9 @@ saveInteret(interet:Interet):Observable<Interet>{
 
 
 //**********************************Langue */
-saveLangue(langues:Langue[]):Observable<Langue[]>{
+saveLangue(langues:Langue):Observable<Langue>{
   console.log('langues',langues)
-  return this.http.post<Langue[]>(this.langueUrl+"/createLangue",langues)
+  return this.http.post<Langue>(this.langueUrl+"/createLangue",langues)
 }
 
 
@@ -99,6 +106,10 @@ saveEntete(entete:Entete):Observable<Entete>{
 saveCV(cvData: Model_cv): Observable<Model_cv> {
   return this.http.post<Model_cv>(this.cvUrl+"/createCV", cvData);
 }
+getCVByID(cvId: String): Observable<CVData> {
+  return this.http.get<CVData>(`${this.cvUrl}/getCV/${cvId}`);
+}
+
 
 
 

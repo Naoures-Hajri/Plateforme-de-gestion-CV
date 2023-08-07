@@ -1,6 +1,6 @@
-
 import {  Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Model_cv } from 'src/app/models/model_cv';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import Swal from 'sweetalert2';
@@ -25,7 +25,7 @@ export class CreateCVComponent  implements OnInit{
   cvData:  Model_cv = new Model_cv(); // Object to store the CV data
   
 
-  constructor(private cvService: CrudCVService, private fb: FormBuilder) {}
+  constructor(private cvService: CrudCVService, private fb: FormBuilder, private router: Router) {}
   ngOnInit(): void {
     this.cvForm = this.fb.group({});
   }
@@ -107,20 +107,8 @@ export class CreateCVComponent  implements OnInit{
           title: 'Succès',
           html: '<h3>Le CV a été enregistré avec succès.</h3>',
         });
-
-        // Generate the new PDF CV
-        if (response.contact) {
-          console.log('Calling updatePDFCV method');
-        this.cvService.updatePDFCV(this.cvId).subscribe(
-          (pdfData) => {
-            // Handle the generated PDF data as needed
-            console.log('PDF CV generated successfully:', pdfData);
-          },
-          (error) => {
-            console.error('Error generating PDF CV:', error);
-          }
-        );
-      }},
+        this.router.navigate(['/modele_cv', this.cvId]);
+        },
       (error) => {
         // Handle error response
         console.error('Error saving CV:', error);
@@ -133,7 +121,3 @@ export class CreateCVComponent  implements OnInit{
     );
   } 
 }
-
-  
-
-  

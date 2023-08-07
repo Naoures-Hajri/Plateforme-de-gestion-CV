@@ -1,3 +1,4 @@
+import { Contact } from "./Contact";
 
 export class Model_cv{
     constructor(

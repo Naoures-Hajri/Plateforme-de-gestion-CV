@@ -1,23 +1,27 @@
 <div class="card-body">
   <form [formGroup]="langueForm" (ngSubmit)="saveLangue()">
-    <div formArrayName="titre">
-      <div *ngFor="let control of existingTitre.controls; let i = index" [formGroupName]="i" class="input-group mb-3">
-        <input type="text" class="form-control" formControlName="langue">
-        <select class="form-select" aria-label="Default select example" formControlName="niveau" style="margin-left: 15px">
-          <option value="">Sélectionner le niveau</option>
-          <option value="Débutant">Débutant</option>
-          <option value="Intermédiaire">Intermédiaire</option>
-          <option value="Bien">Bien</option>
-          <option value="Très Bien">Très Bien</option>
-          <option value="Courant">Courant</option>
-        </select>
-        <i type="button" (click)="delete(i)" class="fa fa-trash" aria-hidden="true" style="padding: 10px 10px 10px 20px"></i>
+    <div formArrayName="langue"class="input-group mb-3"*ngFor="let control of existingLangue().controls; let i = index">
+     
+      <input type="text" class="form-control" aria-describedby="basic-addon2" [formControlName]="i">
+      <span class="input-group-text" id="basic-addon2">
+        <i type="button" (click)="delete(i)" class="fa fa-trash" aria-hidden="true"></i>
+      </span>
+      
+    </div>
+    <div formArrayName="newBloc">
+      <div class="input-group mb-3" *ngFor="let new of newBloc().controls; let i=index" [formGroupName]="i">
+        <input type="text" name="newL" formControlName="newL" aria-describedby="basic-addon2" class="form-control">
+        <span class="input-group-text" id="basic-addon2">
+          <i type="button" (click)="deleteNew(i)" class="fa fa-trash" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
-    <button type="submit" style="font-size: 18px" class="btn btn-primary">
+
+    <button  style="font-size:18px" class="btn btn-primary" >
       <span class="glyphicon glyphicon-ok"></span> Terminé
     </button>
-    <button type="button" (click)="addNewBlock()" style="font-size: 18px; margin-left: 300px;" class="btn btn-primary">
+
+    <button type="button" (click)="addNewBlocLangue()" style="font-size:18px; margin-left:300px;" class="btn btn-primary">
       <i class="bi bi-plus-square"></i>
     </button>
   </form>

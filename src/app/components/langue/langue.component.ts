@@ -12,46 +12,51 @@ export class LangueComponent {
   @Output() langueData: EventEmitter<String> = new EventEmitter<String>();  
   
   langueForm: FormGroup;
-  storedLangue:Langue[]=[];
+  storedLangue:String[]=[];
   constructor(private fb: FormBuilder, private service: CrudCVService, private toast: NgToastService) {
     this.langueForm = this.fb.group({
-      titre: this.fb.array([]),
-      niveau: this.fb.array([]),
+      langue: this.fb.array([]),
+     
       newBloc: this.fb.array([]),
     });
   }
-  get existingTitre(): FormArray {
-    return this.langueForm.get('titre') as FormArray;
+   existingLangue(): FormArray {
+    return this.langueForm.get('langue') as FormArray;
   }
-  get existingNiveau(): FormArray {
-    return this.langueForm.get('niveau') as FormArray;
-  }
-  get newBloc(): FormArray {
+
+  newBloc(): FormArray {
     return this.langueForm.get("newBloc") as FormArray;
   }
   newBlocLangue(): FormGroup {
     return this.fb.group({
-      newL: ['', Validators.required],
-      newN: ['', Validators.required]
+      newL: ['', Validators.required]
+     
     });
   }
   addNewBlock() {
     const newBlock = this.fb.group({
-      langue: ['', Validators.required],
-      niveau: ['', Validators.required]
+      langue: ['', Validators.required]
+      
     });
-    this.existingTitre.push(newBlock); // Ajoute le contrôle 'langue' au tableau 'titre'
-    console.log(this.existingTitre.controls);
+    this.existingLangue().push(newBlock); // Ajoute le contrôle 'langue' au tableau 'titre'
+    console.log(this.existingLangue().controls);
   
     
   }
   
   delete(index: number) {
-    this.existingTitre.removeAt(index);
-    this.existingNiveau.removeAt(index);
+    this.existingLangue().removeAt(index);
+     // Mettre à jour la valeur dans localStorage
+     localStorage.setItem('interet', JSON.stringify(this.storedLangue));
+    
   }
+
+  deleteNew(index:number){
+    this.newBloc().removeAt(index)
+  }
+  
   addNewBlocLangue() {
-    this.newBloc.push(this.newBlocLangue());
+    this.newBloc().push(this.newBlocLangue());
   }
   ngOnInit() {
     this.storedLangue = JSON.parse(localStorage.getItem('langue') || '[]');
@@ -61,13 +66,11 @@ export class LangueComponent {
       this.addNewBlock(); // Appel à addNewBloc() si le bloc langue est vide
     } else {
       this.storedLangue.forEach((langue) => {
-        const langueGroup = this.fb.group({
-          langue: [langue, Validators.required],
-          niveau: ['', Validators.required]
-        });
-        this.existingTitre.push(langueGroup);
+       
+        this.existingLangue().push(this.fb.control(langue));
       });
     }
+  
   }
   
   saveLangue() {
@@ -79,29 +82,27 @@ export class LangueComponent {
       return;
     }
   
-    const langues: Langue[] = this.langueForm.value.titre.map((langue: any) => {
-      return {
-        titre: langue.titre,
-        niveau: langue.niveau
-      };
+    const langues: String[]  = this.langueForm.value.langue.map((langue: String) => {
+      return langue;
     });
   
     // Save the data to localStorage
     localStorage.setItem('langue', JSON.stringify(langues));
   
     // Save the data
-    this.service.saveLangue(this.langueForm.value.titre).subscribe(
+    this.service.saveLangue({ langue: langues }).subscribe(
       (res: any) => {
-        if (res && res._id) {
-          console.log('Emitting _id:', res._id);
-          this.langueData.emit(res._id);
-        setTimeout(() => {
+        console.log('Response:', res);
+        if (res && res.langueId) {
+          console.log('Emitting _id:', res.langueId);
+          this.langueData.emit(res.langueId);
+  
           this.toast.success({
             detail: 'Langue ajoutée avec succès.',
             summary: 'Succès'
           });
-        }, 1000);
-      }},
+        }
+      },
       err => {
         console.error(err);
         this.toast.error({
@@ -111,6 +112,7 @@ export class LangueComponent {
       }
     );
   }
+  
    
 
 

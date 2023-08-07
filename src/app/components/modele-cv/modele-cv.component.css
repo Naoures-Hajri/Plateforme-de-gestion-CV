@@ -1,87 +1,140 @@
-.container-fluid,
-.container,
-.row,
-.col-md-4,
-.col-md-8 {
-  fill: none;
-}
+        /* Styles pour le bouton "Choisir un modèle" */
+        .choose-button {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+      }
 
-.left-co {
-  fill: #ffffff;
-}
+      .choose-button button {
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px; /* Réduisez le padding du bouton */
+          font-size: 0.9rem; /* Réduisez la taille de la police du bouton */
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+ 
+      * {
+          margin: 0;
+          box-sizing: border-box;
+      }
 
-.left-side {
-  fill: #f1f1f1;
-}
+      body {
+          font-family: Roboto;
+          font-weight: 300;
+          font-size: .9rem;
+          line-height: 1.5;
+      }
 
-.contact-box .icon,
-.contact-box .detail {
-  fill: #333333;
-}
+      a {
+          text-decoration: none;
+          color: #4472C4;
+      }
 
-.ltitle {
-  fill: #333333;
-  font-size: 18px;
-  font-weight: bold;
-}
+      a:hover {
+          text-decoration: underline;
+      }
 
-.form-group .col-md-6 h3 {
-  fill: #333333;
-  font-size: 16px;
-}
+      p {
+          margin: 0 0 1rem;
+      }
 
-.form-group .col-md-6 span {
-  fill: #333333;
-  font-size: 16px;
-}
+      h1 {
+          margin: 0 0 1rem;
+          font-size: 2rem; /* Réduisez la taille de la police du titre h1 */
+          margin-bottom: .5rem;
+      }
 
-.hoby li {
-  fill: #333333;
-  font-size: 16px;
-}
+      h2 {
+          margin: 0 0 1rem;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+      }
 
-.rit-cover {
-  fill: #ffffff;
-}
+      .text-blue {
+          color: #4472C4;
+      }
 
-.hotkey h1 {
-  fill: #333333;
-  font-size: 24px;
-  font-weight: bold;
-}
+      .text-darkblue {
+          color: #002060;
+      }
 
-.hotkey small {
-  fill: #333333;
-  font-size: 14px;
-}
+      .text-uppercase {
+          text-transform: uppercase;
+      }
 
-.rit-titl {
-  fill: #333333;
-  font-size: 20px;
-  font-weight: bold;
-}
+      .icon {
+          margin-right: .5rem;
+      }
 
-.work-exp h6 span {
-  fill: #333333;
-  font-size: 16px;
-}
+      .cv-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "left-column right-column right-column";
+        width: 50%; /* Réduisez la largeur du conteneur principal */
+        height: 10px;
+        margin: 20px; /* Réduisez la marge du conteneur principal */
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
 
-.work-exp i {
-  fill: #333333;
-  font-size: 14px;
-}
+      /* LEFT COLUMN */
+      .left-column {
+          grid-area: left-column;
+          padding: 20px; /* Réduisez le padding de la colonne gauche */
+          background-color: #4472C4;
+          color: white;
+      }
 
-.work-exp ul li {
-  fill: #333333;
-  font-size: 14px;
-}
+      .portait {
+          border-radius: 50%;
+          max-width: 100px; /* Réduisez la taille de l'image */
+          margin: auto;
+          display: block;
+          margin-bottom: 20px; /* Réduisez la marge de l'image */
+      }
 
-.education-item span {
-  fill: #333333;
-  font-size: 16px;
-}
+      .skills {
+          list-style-type: none;
+          padding: 0;
+          font-size: 0.9rem; /* Réduisez la taille de la police des compétences */
+          letter-spacing: 1px;
+          margin: 0 0 1rem;
+      }
 
-.education-item {
-  fill: #333333;
-  font-size: 14px;
-}
+      /* RIGHT COLUMN */
+      .right-column {
+          grid-area: right-column;
+          display: grid;
+          grid-template-rows: 150px 1fr; /* Réduisez la hauteur de la première rangée */
+          grid-template-areas: "header" "content";
+      }
+
+      /* HEADER */
+      .header {
+          grid-area: header;
+          padding: 20px; /* Réduisez le padding de l'en-tête */
+          background-color: #F2F2F2;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+      }
+
+      .infos {
+          columns: 2;
+          list-style-type: none;
+          padding: 0;
+      }
+
+      /* CONTENT */
+      .content {
+          grid-area: content;
+          padding: 20px; /* Réduisez le padding du contenu */
+      }
+
+      .experience-list {
+          list-style-type: circle;
+      }

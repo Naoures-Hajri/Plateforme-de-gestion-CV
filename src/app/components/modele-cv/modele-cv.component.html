@@ -1,9 +1,130 @@
-<a [routerLink]="['/cvImport']">
-    <pdf-viewer [src]="imgURL"
-                [render-text]="true"
-                [fit-to-page]="true"
-                [original-size]="true"
-                style="display: contents;">
-    </pdf-viewer>
-  </a>
+
+<div class="cv-container" onmouseenter="showButton()" onmouseleave="hideButton()"*ngIf="cvData">
+  <div class="choose-button" style="display: none;">
+    <button class="rounded-pill">Choisir ce modèle</button>
+</div>
+  <div class="left-column">
+    <img class="portait" src="https://www.codeur.com/tuto/wp-content/uploads/2022/01/MG_0110-4-293x300.jpg" />
+   
+    <div class="section">
+      <h2>Contact</h2>
+      
+        <ul class="skills">
+          <li><i class="icon fas fa-at text-darkblue"></i> {{ cvData?.contact?.mail }}</li>
+          <li><i class="icon fas fa-phone text-darkblue"></i> {{ cvData?.contact?.tel }}</li>
+          <li><i class="icon fas fa-map-marker-alt text-darkblue"></i>{{ cvData?.contact?.adresse  }}</li>
+        </ul>
+      
+    </div>
+    
+    <div class="section">
+      <h2>COMPÉTENCES</h2>
+      <ul class="skills"*ngFor="let competence of cvData?.competence?.competence">
+        <li><i class="icon fas fa-check-circle text-darkblue"></i> {{competence}}</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Langues</h2>
+      <p >
+        Français, langue maternelle
+        <br>
+        Anglais, compétence professionnelle
+      </p>
+    </div>
+    <div class="section">
+      <h2>Centres d'intérêt</h2>
+      <ul class="skills"*ngFor="let interet of cvData?.centreInteret?.interet">
+        <li><i class="icon fas fa-check-circle text-darkblue"></i> {{interet}}</li>
+     
+      </ul>
+    </div>
+  </div>
+  <div class="right-column">
+    <div class="header">
+      <div class="hotkey">
+        <h1 class="">Jonney Anderson </h1>
+        <p>Freelance Front-end Developer</p>
+    </div>
+     
+    </div>
+    <div class="content">
+      <div class="section">
+        <h2>Expériences <br><span class="text-blue">professionelles</span></h2>
+        <p>
+          <strong>2015 <i class="fas fa-long-arrow-alt-right"></i> 2021</strong>
+          <br>
+          Fullstack Developer à temps plein chez <em>Webadev SPRL</em>
+        </p>
+        <ul class="experience-list">
+          <li>Réalisations de sites web, d’e-shops, d’interfaces et d’applications web sous Angular et Bootstrap</li>
+          <li>Intégration de templates Photoshop, Illustrator, Sketch, Figma</li>
+          <li>Animations CSS / JS</li>
+          <li>Responsive design</li>
+          <li>UI / UX Design</li>
+          <li>Projets sous npm et Webpack</li>
+          <li>Collaboration avec d’autres studios graphique (Studio Debie, SOL,…)</li>
+          <li>Optimisation des performances</li>
+          <li>Développement de templates et de modules réutilisables</li>
+          <li>Projets en équipe, utilisation quotidienne de SVN, Git et Github</li>
+        </ul>
+      </div>
+      <div class="section">
+        <p>
+          <strong>2021</strong>
+          <br>
+          Freelance en activité
+        </p>
+        <ul class="experience-list">
+          <li>Freelance Front-end Developer</li>
+          <li>Unity Developer / Sound Designer</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>Études <br><span class="text-blue">& formations</span></h2>
+        <p>
+          <strong>2015 <i class="fas fa-long-arrow-alt-right"></i> 2019</strong>
+          <br>
+          <em>Bachelier en Informatique de Gestion</em>, Diplômé, Institut Saint Laurent
+        </p>
+        <p>
+          <strong>2015</strong>
+          <br>
+          <em>STE-Formations Informatiques</em>, Formation qualifiante de Web Developer
+        </p>
+        <p>
+          <strong>2013 <i class="fas fa-long-arrow-alt-right"></i> 2014</strong>
+          <br>
+          <em>Bachelier en Sciences humaines</em>, Haute École de Liège
+        </p>
+        <p>
+          <strong>2009 <i class="fas fa-long-arrow-alt-right"></i> 2013</strong>
+          <br>
+          <em>Bachelier en Psychologie</em>, Université de Liège
+        </p>
+        <p>
+          <strong>2002 <i class="fas fa-long-arrow-alt-right"></i> 2009</strong>
+          <br>
+          <em>CESS</em>, Institut Notre-Dame de Jupille
+        </p>
+      </div>
+      <div class="section">
+        <h2>Autres <br><span class="text-blue">expériences</span></h2>
+        <p>
+          Permis B, possession d’une voiture
+          <br>
+          Animateur Scout pendant 6 ans
+          <br>
+          Brevet d’animateur de Centre de Vacances
+        </p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+
+
   
+
+ 
+ 

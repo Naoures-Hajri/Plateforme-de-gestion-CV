@@ -7,17 +7,19 @@ import { ModeleCvComponent } from './components/modele-cv/modele-cv.component';
 import { CreateCVComponent } from './components/create-cv/create-cv.component';
 
 
+
 const routes: Routes = [
   {path: 'cvImport', component: CvImportComponent},
   {path: 'fileUp', component: FileUpComponent},
   {path: 'filePreview', component: FilePreviewComponent},
-  {path: 'modele_cv', component: ModeleCvComponent},
+  {path: 'modele_cv/:id', component: ModeleCvComponent},
   {path: 'cv', component: CreateCVComponent},
   
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+ 
 })
 export class AppRoutingModule { }
