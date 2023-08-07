@@ -9,7 +9,7 @@
 
     <div formArrayName="newInt">
       <div class="input-group mb-3" *ngFor="let new of newInter().controls; let i=index" [formGroupName]="i">
-        <input type="text" name="inter" formControlName="inter" aria-describedby="basic-addon2" class="form-control">
+        <input type="text" name="inter" placeholder="Interet" formControlName="inter" aria-describedby="basic-addon2" class="form-control">
         <span class="input-group-text" id="basic-addon2">
           <i type="button" (click)="deleteNew(i)" class="fa fa-trash" aria-hidden="true"></i>
         </span>

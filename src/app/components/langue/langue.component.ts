@@ -3,6 +3,7 @@ import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@an
 import { Langue } from 'src/app/models/Langue';
 import { CrudCVService } from 'src/app/service/crud-cv.service';
 import { NgToastService } from 'ng-angular-popup';
+import { forkJoin, Observable, Observer } from 'rxjs';
 @Component({
   selector: 'app-langue',
   templateUrl: './langue.component.html',
@@ -33,87 +34,76 @@ export class LangueComponent {
      
     });
   }
-  addNewBlock() {
-    const newBlock = this.fb.group({
-      langue: ['', Validators.required]
-      
-    });
-    this.existingLangue().push(newBlock); // Ajoute le contrôle 'langue' au tableau 'titre'
-    console.log(this.existingLangue().controls);
-  
+  addNewBlock(event: Event) {
+ 
+   
+      this.newBloc().push(this.newBlocLangue());
+      event.preventDefault(); // Empêcher la soumission du formulaire et le rafraîchissement de la page
+    }
     
-  }
+  
   
   delete(index: number) {
     this.existingLangue().removeAt(index);
      // Mettre à jour la valeur dans localStorage
-     localStorage.setItem('interet', JSON.stringify(this.storedLangue));
+     localStorage.setItem('langue', JSON.stringify(this.storedLangue));
     
   }
 
   deleteNew(index:number){
     this.newBloc().removeAt(index)
   }
-  
-  addNewBlocLangue() {
+
+  addNewBlocLangue(event: Event) {
     this.newBloc().push(this.newBlocLangue());
+    event.preventDefault();
   }
   ngOnInit() {
     this.storedLangue = JSON.parse(localStorage.getItem('langue') || '[]');
     console.log(this.storedLangue);
   
-    if (this.storedLangue.length === 0) {
-      this.addNewBlock(); // Appel à addNewBloc() si le bloc langue est vide
-    } else {
-      this.storedLangue.forEach((langue) => {
-       
-        this.existingLangue().push(this.fb.control(langue));
-      });
-    }
+    this.storedLangue.forEach((lang) => {
+      this.existingLangue().push(this.fb.control(lang));
+    });
   
   }
   
-  saveLangue() {
-    if (this.langueForm.invalid) {
-      this.toast.info({
-        detail: 'Veuillez remplir tous les champs.',
-        summary: 'Erreur'
-      });
-      return;
-    }
+  saveLangue(event: Event) {
+    event.preventDefault();
+    const existingValues = this.langueForm.get('langue')?.value;
+    const newValues = this.langueForm.get('newBloc')?.value.map((v: { newL: string }) => v.newL);
+    this.storedLangue = [...existingValues, ...newValues];
   
-    const langues: String[]  = this.langueForm.value.langue.map((langue: String) => {
-      return langue;
+    // Update localStorage first
+    localStorage.setItem('langue', JSON.stringify(this.storedLangue));
+  
+    // Create the Langue object
+    let langues = new Langue(undefined, this.storedLangue);
+  
+    const saveLang$ = this.service.saveLangue(langues);
+    const updateLocalStorage$ = new Observable<void>((observer: Observer<void>) => {
+      observer.next();
+      observer.complete();
     });
   
-    // Save the data to localStorage
-    localStorage.setItem('langue', JSON.stringify(langues));
+    forkJoin([saveLang$, updateLocalStorage$]).subscribe(
+      ([saveRes]) => {
+        console.log(saveRes);
+        console.log('Emitting langueId:', saveRes);
+        this.langueData.emit(saveRes.langueId);
   
-    // Save the data
-    this.service.saveLangue({ langue: langues }).subscribe(
-      (res: any) => {
-        console.log('Response:', res);
-        if (res && res.langueId) {
-          console.log('Emitting _id:', res.langueId);
-          this.langueData.emit(res.langueId);
+        setTimeout(() => {
+          this.toast.success({ detail: 'Langue ajoutée avec succès.', summary: 'Succès' });
+        }, 1000);
   
-          this.toast.success({
-            detail: 'Langue ajoutée avec succès.',
-            summary: 'Succès'
-          });
-        }
+        // Mettre à jour les valeurs des contrôles du formulaire
+        this.langueForm.get('langue')?.setValue(this.storedLangue);
       },
       err => {
         console.error(err);
-        this.toast.error({
-          detail: 'Veuillez vérifier.',
-          summary: 'Erreur'
-        });
+        this.toast.error({ detail: 'Veuillez vérifier.', summary: 'Erreur' });
       }
     );
   }
   
-   
-
-
-  }
+}
