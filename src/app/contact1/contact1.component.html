@@ -1,0 +1,29 @@
+<form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+    <div class="form-group row" >	
+                    
+        <div class="col-md-6">
+            <label>Telephone</label>
+            <input type="tel" id="tel"name="tel"  class="form-control"  placeholder="Téléphone"formControlName="tel"style="width: 455px;">
+            <div *ngIf="tel?.touched && tel?.invalid">
+                <small class="text-danger" *ngIf="tel?.errors?.['required']">Numéro de téléphone
+                    est obligatoire</small>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <label>Adresse mail</label>
+            <input type="text" name="mail"  class="form-control"  formControlName="mail">
+            
+        </div>
+    </div>
+    <div class="form-group row">	
+        
+        <div class="col-md-6">
+            <label>Adresse postale</label>
+            <input type="text" name="adresse" id="adresse" class="form-control" placeholder="Adresse" formControlName="adresse">
+        
+        </div>
+    </div>
+    <button type="submit"style="font-size:18px" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Terminé</button>
+ 
+</form>
+

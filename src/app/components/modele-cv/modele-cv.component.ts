@@ -12,7 +12,7 @@ import { CVData } from 'src/app/models/cvData';
 })
 export class ModeleCvComponent implements OnInit {
 
-  cvData?: CVData | undefined;
+  cvData?: any | undefined;
   contactData?: Contact;
 
   constructor(private route: ActivatedRoute, private cvService: CrudCVService) { }

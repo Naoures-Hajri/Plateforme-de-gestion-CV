@@ -1,10 +1,10 @@
 
-<div class="cv-container" onmouseenter="showButton()" onmouseleave="hideButton()"*ngIf="cvData">
+<div class="cv-container" *ngIf="cvData">
   <div class="choose-button" style="display: none;">
     <button class="rounded-pill">Choisir ce modèle</button>
 </div>
   <div class="left-column">
-    <img class="portait" src="https://www.codeur.com/tuto/wp-content/uploads/2022/01/MG_0110-4-293x300.jpg" />
+    <img  [src]=" cvData?.entete?.image"height="100"  />
    
     <div class="section">
       <h2>Contact</h2>
@@ -25,11 +25,9 @@
     </div>
     <div class="section">
       <h2>Langues</h2>
-      <p >
-        Français, langue maternelle
-        <br>
-        Anglais, compétence professionnelle
-      </p>
+      <ul class="skills"*ngFor="let langue of cvData?.langue?.langue">
+        <li><i class="icon fas fa-check-circle text-darkblue"></i> {{langue}}</li>
+      </ul>
     </div>
     <div class="section">
       <h2>Centres d'intérêt</h2>
@@ -42,81 +40,38 @@
   <div class="right-column">
     <div class="header">
       <div class="hotkey">
-        <h1 class="">Jonney Anderson </h1>
-        <p>Freelance Front-end Developer</p>
+        <h1 >{{ cvData?.entete?.nom }} {{ cvData?.entete?.prenom }} </h1>
+        <p>{{ cvData?.entete?.profession }}</p>
     </div>
      
     </div>
     <div class="content">
       <div class="section">
-        <h2>Expériences <br><span class="text-blue">professionelles</span></h2>
-        <p>
-          <strong>2015 <i class="fas fa-long-arrow-alt-right"></i> 2021</strong>
-          <br>
-          Fullstack Developer à temps plein chez <em>Webadev SPRL</em>
-        </p>
-        <ul class="experience-list">
-          <li>Réalisations de sites web, d’e-shops, d’interfaces et d’applications web sous Angular et Bootstrap</li>
-          <li>Intégration de templates Photoshop, Illustrator, Sketch, Figma</li>
-          <li>Animations CSS / JS</li>
-          <li>Responsive design</li>
-          <li>UI / UX Design</li>
-          <li>Projets sous npm et Webpack</li>
-          <li>Collaboration avec d’autres studios graphique (Studio Debie, SOL,…)</li>
-          <li>Optimisation des performances</li>
-          <li>Développement de templates et de modules réutilisables</li>
-          <li>Projets en équipe, utilisation quotidienne de SVN, Git et Github</li>
+        <h2>EXPERIENCE PROFESSIONNELLE</h2>
+        <ul *ngIf="cvData?.experience?.experience?.length > 0">
+          <li *ngFor="let experienceItem of cvData?.experience?.experience"class="experience-item">
+            <div ><strong > {{ experienceItem.poste }}</strong></div>
+            <div>{{ experienceItem.entreprise }}</div>
+            <div> <h6 style="color: gray;">{{ experienceItem.dateDeb | date }} <i class="fas fa-long-arrow-alt-right"></i> {{ experienceItem.dateFin | date }}</h6></div>
+            <div>{{ experienceItem.description }}</div>
+          </li>
+      
         </ul>
-      </div>
+        
+        <p *ngIf="!cvData?.formation?.formation || cvData?.formation?.formation?.length === 0">Aucune experience disponible.</p></div>
       <div class="section">
-        <p>
-          <strong>2021</strong>
-          <br>
-          Freelance en activité
-        </p>
-        <ul class="experience-list">
-          <li>Freelance Front-end Developer</li>
-          <li>Unity Developer / Sound Designer</li>
+        <h2>Formation</h2>
+        <ul *ngIf="cvData?.formation?.formation?.length > 0">
+          <li *ngFor="let formationItem of cvData?.formation?.formation"class="experience-item">
+            <div ><strong > {{ formationItem.dateDeb | date }} <i class="fas fa-long-arrow-alt-right"></i> {{ formationItem.dateFin | date }}</strong></div>
+            <div>{{ formationItem.diplome }}</div>
+            <div>{{ formationItem.etablissement }}</div>
+          </li>
         </ul>
+        <p *ngIf="!cvData?.formation?.formation || cvData?.formation?.formation?.length === 0">Aucune formation disponible.</p>
       </div>
-      <div class="section">
-        <h2>Études <br><span class="text-blue">& formations</span></h2>
-        <p>
-          <strong>2015 <i class="fas fa-long-arrow-alt-right"></i> 2019</strong>
-          <br>
-          <em>Bachelier en Informatique de Gestion</em>, Diplômé, Institut Saint Laurent
-        </p>
-        <p>
-          <strong>2015</strong>
-          <br>
-          <em>STE-Formations Informatiques</em>, Formation qualifiante de Web Developer
-        </p>
-        <p>
-          <strong>2013 <i class="fas fa-long-arrow-alt-right"></i> 2014</strong>
-          <br>
-          <em>Bachelier en Sciences humaines</em>, Haute École de Liège
-        </p>
-        <p>
-          <strong>2009 <i class="fas fa-long-arrow-alt-right"></i> 2013</strong>
-          <br>
-          <em>Bachelier en Psychologie</em>, Université de Liège
-        </p>
-        <p>
-          <strong>2002 <i class="fas fa-long-arrow-alt-right"></i> 2009</strong>
-          <br>
-          <em>CESS</em>, Institut Notre-Dame de Jupille
-        </p>
-      </div>
-      <div class="section">
-        <h2>Autres <br><span class="text-blue">expériences</span></h2>
-        <p>
-          Permis B, possession d’une voiture
-          <br>
-          Animateur Scout pendant 6 ans
-          <br>
-          Brevet d’animateur de Centre de Vacances
-        </p>
-      </div>
+      
+ 
     </div>
   </div>
 </div> 

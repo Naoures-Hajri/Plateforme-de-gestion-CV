@@ -1,0 +1,51 @@
+<div class="card-body">
+ 
+    <form [formGroup]="experienceForm">
+      <div formArrayName="experiences">
+        <ng-container *ngFor="let experienceCtrl of experiences.controls; let i=index">
+          <div [formGroupName]="i" class="formation-group">
+            <div class="card mb-3">
+            <div class="card-header formation-index">
+                Experience {{ i + 1 }}
+                <i type="button" (click)="removeExperience(i)" class="fa fa-trash" aria-hidden="true" style="padding: 10px 10px 10px 20px;margin-left:780px;"></i>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6">
+                 <label>Poste</label>
+                 <input type="text" formControlName="poste" class="form-control">
+                </div>
+             <div class="col-sm-6">
+               <label>Entreprise</label>
+               <input type="text" formControlName="entreprise" class="form-control">
+             </div>
+             </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                  <label>Date de début</label>
+                  <input type="date" formControlName="dateDeb" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                 <label>Date de fin</label>
+                 <input type="date" formControlName="dateFin" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="10" name="description" placeholder="Description" ></textarea>
+              </div>
+           
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <button (click)="saveExperience()"style="font-size: 18px;" class="btn btn-primary">
+      
+        <span class="glyphicon glyphicon-ok"></span> Terminé
+      </button>
+      <button type="button" (click)="addExperience()" style="font-size: 18px; margin-left: 300px;" class="btn btn-primary">
+        <i class="bi bi-plus-square"></i>
+      </button>
+    </form>
+  </div>
+  
+

@@ -1,3 +1,7 @@
+
+	
+
+
 /* ==== Typography Css ==== */
 h1,h2,h3,h4,h5,h6 {
 	font-weight: 700 !important;
@@ -26,17 +30,5 @@ p, .more, .form-control, .readlink, .readmores, li, td, .form-select{
 .container {
 	max-width: 1000px !important;
 }
-img {
-	padding-left: 20px;
-	height: 100px; /* Définit la hauteur de l'image à 80 pixels */
-	border: 1px solid #000; /* Bordure solide d'une largeur de 1 pixel et couleur noire */
-	border-radius: 5px; /* Ajoute un arrondi aux coins de l'image */
-	padding: 10px; /* Ajoute un espace à l'intérieur de la bordure */
-  }
-  input.form-control {
-	transition: border-color 0.3s ease;
-  }
-  
 
-  
   

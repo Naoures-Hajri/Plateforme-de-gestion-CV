@@ -1,0 +1,46 @@
+<div class="card-body">
+ 
+    <form [formGroup]="formationForm">
+      <div formArrayName="formations">
+        <ng-container *ngFor="let formationCtrl of formations.controls; let i=index">
+          <div [formGroupName]="i" class="formation-block">
+            <div class="card mb-3">
+            <div class="card-header formation-index">
+                Formation {{ i + 1 }}
+                <i type="button" (click)="removeFormation(i)" class="fa fa-trash" aria-hidden="true" style="padding: 10px 10px 10px 20px;margin-left:770px;"></i>
+              </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                  <label>Date de début</label>
+                  <input type="date" formControlName="dateDeb" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                 <label>Date de fin</label>
+                 <input type="date" formControlName="dateFin" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-6">
+                <label>Diplôme</label>
+                <input type="text" formControlName="diplome" class="form-control">
+               </div>
+            <div class="col-sm-6">
+              <label>Établissement</label>
+              <input type="text" formControlName="etablissement" class="form-control">
+            </div>
+            </div>
+           
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <button (click)="saveFormation()"style="font-size: 18px;" class="btn btn-primary">
+      
+        <span class="glyphicon glyphicon-ok"></span> Terminé
+      </button>
+      <button type="button" (click)="addFormation()" style="font-size: 18px; margin-left: 300px;" class="btn btn-primary">
+        <i class="bi bi-plus-square"></i>
+      </button>
+    </form>
+  </div>
+  

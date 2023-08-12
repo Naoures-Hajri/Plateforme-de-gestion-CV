@@ -138,3 +138,8 @@
       .experience-list {
           list-style-type: circle;
       }
+      .experience-item {
+        margin-bottom: 20px; /* Ajoutez la marge inférieure souhaitée ici */
+      }
+      
+      

@@ -101,6 +101,11 @@ saveEntete(entete:Entete):Observable<Entete>{
   return this.http.post<Entete>(this.enteteUrl+"/createEntete",entete)
 }
 
+uploadImage(formData: FormData): Observable<any> {
+  return this.http.post<any>('http://localhost:8081/receiveFile', formData);
+}
+
+
 
 //**********************************CV */
 saveCV(cvData: Model_cv): Observable<Model_cv> {

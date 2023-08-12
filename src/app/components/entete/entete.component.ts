@@ -64,7 +64,7 @@ export class EnteteComponent {
   saveEntete() {
     let data = this.enteteForm.value;
     console.log(data);
-    let entete = new Entete(undefined,data.image, data.nom, data.prenom, data.profession);
+    let entete = new Entete(undefined,this.imgURL, data.nom, data.prenom, data.profession);
     if (this.enteteForm.invalid) {
       this.toast.info({ detail: 'Veuillez remplir tous les champs.', summary: 'err msg !!' });
       return;
