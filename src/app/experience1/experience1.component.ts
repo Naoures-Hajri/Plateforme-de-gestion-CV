@@ -46,7 +46,7 @@ export class Experience1Component {
   }
 
   saveExperience(): void {
-    const experiencesData: Experience[] = this.experienceForm.value.formations;
+    const experiencesData: Experience[] = this.experienceForm.value.experiences;
     // Envoyer experiencesData au service pour l'enregistrement
     this.service.saveExperience(experiencesData).subscribe(
       (res: any) => {
