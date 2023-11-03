@@ -1,0 +1,78 @@
+<div class="title-dialog">
+    <H2>Profil</H2>
+    <hr>
+</div>
+
+
+<div mat-dialog-content class="dialog-user" >
+    <div class="row py-4 px-2">
+      
+        <main class="form-signin m-auto swing-in-top-fwd-auth">
+          <form>
+            <div class="text-center">
+              <mat-icon class="icon-login">how_to_reg</mat-icon>
+  
+              <h1 class="h4 mb-4 fw-normal">Modifier profil</h1>
+  
+            </div>
+  
+            <div class="row mb-4">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating" style="margin-bottom: 15px;">
+                  <input type="text" [(ngModel)]="user.firstName" name="firstName" class="form-control floatFirstname" id="floatFirstname" placeholder="Fisrt name">
+                  <label for="floatFirstname">Nom</label>
+                </div>
+  
+  
+  
+  
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating"style="margin-bottom: 15px;">
+                  <input type="text" class="form-control floatLastname" [(ngModel)]="user.lastName" name="lastName" id="floatInput" placeholder="Last name">
+                  <label for="floatInput">Prénom</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating">
+                  <input type="text" [(ngModel)]="user.phone" name="phone" class="form-control floatPhone" id="floatInput" placeholder="Phone">
+                  <label for="floatInput">Téléphone</label>
+                </div>
+              </div>
+  
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating">
+                  <input type="email" [(ngModel)]="user.email" name="email" class="form-control floatEmail" id="floatEmail" placeholder="Email">
+                  <label for="floatEmail">Email</label>
+                </div>
+              </div>
+  
+        
+          
+             
+            </div>
+            <div class="row mb-4" *ngIf="user.role == 'recruteur'">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating">
+                  <input type="text" [(ngModel)]="user.entreprise" name="entreprise" class="form-control floatEntreprise" id="floatEntreprise" placeholder="Entreprise">
+                  <label for="floatEntreprise">Nom de l'entreprise</label>
+                </div>
+              </div>
+            
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 div-signup">
+                <div class="form-floating">
+                  <input type="text" [(ngModel)]="user.emailEntreprise" name="emailEntreprise" class="form-control floatEmailEntreprise" id="floatInput" placeholder="Email entreprise">
+                  <label for="floatInput">Email entreprise</label>
+                </div>
+              </div>
+            </div>
+  
+  
+            <button class="w-100 btn btn-lg btn-success btn-submit" (click)="edit()" type="submit">Modifier</button>
+         
+          </form>
+        </main>
+     
+    </div>
+  
+  </div>

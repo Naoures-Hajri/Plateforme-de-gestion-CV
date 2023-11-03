@@ -1,0 +1,28 @@
+<div class="card-body" >
+  <form [formGroup]="langueForm" >
+      <div class="input-group mb-3">
+          <input type="text" name="langue" placeholder="Langue : Niveau" formControlName="langue" class="form-control" aria-describedby="basic-addon2">
+      </div>
+    
+     
+    <div formArrayName="newLang">
+      <div class="input-group mb-3" *ngFor="let new of newLang().controls; let i=index" [formGroupName]="i">  
+        <input type="text" name="lang"placeholder="Langue : Niveau" formControlName="lang" aria-describedby="basic-addon2" class="form-control">  
+        <span class="input-group-text" id="basic-addon2">
+          <i type="button" (click)="deleteNew(i)" class="fa fa-trash" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    
+    
+    
+    <button mat-raised-button (click)="saveLangue($event)" type="submit" [disabled]="langueForm.get('langue').value === ''" color="primary"><mat-icon>done</mat-icon>
+      Terminé</button>
+    
+      <button (click)="addItem($event)" color="primary" style="font-size:18px; margin-left:300px;" mat-raised-button type="submit"><mat-icon>add</mat-icon>
+      </button>
+  </form>
+  
+</div>
+ 
+

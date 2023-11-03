@@ -1,0 +1,41 @@
+<div class="container-fluid p-0"style="background-image: url('../assets/images/CV.png'); background-size: 1600px;">
+    <div class="row">
+        <div class="container-form">
+            <main class="form-signin m-auto swing-in-top-fwd-auth ">
+                <form>
+                    
+                    <div class="text-center">
+                        <mat-icon class="icon-login">login</mat-icon>
+
+                        <h1 class="h4 mb-4 fw-normal">S'identifier</h1>
+
+                    </div>
+                    <div *ngIf="message" class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+
+                    <div class="form-floating"style="margin-bottom: 20px;">
+                        
+                        <input type="email" [(ngModel)]="email" name="email" class="form-control floatingEmail"
+                            id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Adresse e-mail</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" [(ngModel)]="password" name="password"
+                            class="form-control floatingPassword" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Mot de passe</label>
+                    </div>
+
+
+                    <button class="w-100 btn btn-lg btn-primary btn-submit" (click)="login()"
+                        type="submit">Se connecter</button>
+                    <div class="link-reset">
+                        <p>Mot de passe oublié?<a routerLink="../forgot-password"> Réinitialiser</a></p>
+                        <p>Vous n'avez pas de compte ?<a routerLink="../sign-up"> S'inscrire</a></p>
+                    </div>
+                    
+                </form>
+            </main>
+        </div>
+    </div>
+</div>

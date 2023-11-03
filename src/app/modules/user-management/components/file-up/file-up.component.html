@@ -1,0 +1,22 @@
+<div class="page">
+    <div class="wrapper">
+        <i type="button" (click)="close()" class="fa fa-times text-secondary" style="padding-top: 1px;padding-left: 380px"></i>
+        <header>UPLOAD MY RESUME</header>
+        
+            <label>
+            <input type="file" multiple (change)="onSelectFile($event)" hidden/>
+           
+            
+            <i class="fa fa-upload"></i>
+            <p>Browse File To Upload</p>
+            <br>
+            <div>
+                <button type="submit"class="btn btn-outline-primary"(click)="onSubmit()">Upload</button>
+            </div>
+            </label>
+      
+        
+    </div>
+    
+    </div>
+    

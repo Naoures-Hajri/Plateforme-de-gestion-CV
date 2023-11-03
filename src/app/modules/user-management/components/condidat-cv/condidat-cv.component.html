@@ -1,0 +1,337 @@
+
+ <div class="div-main">
+
+
+  <div class="row d-flex justify-content-center py-4">
+    <div class="col-12">
+      <div class="row">
+
+        <div class="col-12" *ngIf="cvData?.model == 1">
+          <button class="btn btn-primary" style="margin-left: 20px;" (click)="generatePdfmodelone()">Download</button>
+          <button class="btn btn-success" style="margin-left: 20px;" (click)="addEntretien(cvData)">+ Interview</button>
+          <div style="display: flex; justify-content: space-between;">
+            <div class="cv-container" *ngIf="cvData" id="modelone">
+
+              <div class="left-column" [ngStyle]="{'background-color':colorPicker , 'color' : colorPickerText }">
+                <img *ngIf="imgAm == 'Hide'" [ngStyle]="{'width': widthImage + 'px' ,'height': heightImage + 'px' ,  'margin': topImage+'px '+leftImage+'px '+bottomImage+'px '+rightImage+'px' , 'left' : leftImage}" style="border-radius: 50%; "
+                  src="http://localhost:8081/api/public/picture/{{ cvData?.entete?.image }}" />
+
+                <div class="section" *ngIf="disableContact" style="margin-top: 30px;">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Contact</h2>
+
+                  <ul class="skills" >
+                    <li ><mat-icon *ngIf="disableIcons" >email</mat-icon>{{ cvData?.contact?.mail }}</li>
+                    <li><mat-icon *ngIf="disableIcons">phone</mat-icon> {{ cvData?.contact?.tel }}</li>
+                    <li><mat-icon *ngIf="disableIcons"> location_on</mat-icon> {{ cvData?.contact?.adresse }}</li>
+                  </ul>
+
+                </div>
+
+                <div class="section" *ngIf="disableCompetences">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">COMPÉTENCES</h2>
+                  <ul class="skills" *ngFor="let competence of cvData?.competence?.competence">
+                    <li> {{competence}}</li>
+                  </ul>
+                </div>
+                <div class="section" *ngIf="disableLangues">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Langues</h2>
+                  <div *ngFor="let i of cvData?.langue.langue">
+                    <p>{{i}}</p>
+                  </div>
+
+                </div>
+                <div class="section">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Centres d'intérêt</h2>
+                  <ul class="skills" *ngFor="let interet of cvData?.centreInteret?.interet">
+                    <li> {{interet}}</li>
+
+                  </ul>
+                </div>
+              </div>
+              <div class="right-column">
+                <div class="header">
+                  <div class="hotkey">
+                    <h1 class="">{{ cvData?.entete?.prenom }} {{ cvData?.entete?.nom }}</h1>
+                    <p>{{ cvData?.entete?.profession }}</p>
+                  </div>
+
+                </div>
+                <div class="content">
+                  <div class="section" *ngIf="disableExperience">
+                    <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }"><i class="material-icons icons3" >folder</i>   Expérience professionnelle</h2>
+                       <ul *ngIf="cvData?.experience?.experience?.length > 0">
+                      <li *ngFor="let experienceItem of cvData?.experience?.experience"class="experience-item"style="margin-bottom: 20px;">
+                        <div>{{experienceItem.dateDeb.slice(0,4)}} - <i class="fas fa-long-arrow-alt-right"></i>
+                          {{experienceItem.dateFin.slice(0,4)}} | {{ experienceItem.entreprise }}</div>
+                        <div ><strong > {{ experienceItem.poste }}</strong></div>
+                        <div>{{ experienceItem.description }}</div>
+                      </li>
+                  
+                    </ul>
+
+                  </div>
+
+                  <div class="section" *ngIf="disableFormations">
+                    <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }"><i class="material-icons icons3" >border_color</i>  Formation</h2>
+                     <ul *ngIf="cvData?.formation?.formation?.length > 0">
+                      <li *ngFor="let i of cvData?.formation?.formation"style="margin-bottom: 20px;">
+                        
+                          <div>{{i.dateDeb.slice(0,4)}} - <i class="fas fa-long-arrow-alt-right"></i>
+                            {{i.dateFin.slice(0,4)}}</div>
+                          
+                          <div><strong>{{i.diplome}}</strong></div> 
+                          <div>{{i.etablissement}}</div> 
+                      </li> 
+                      </ul> 
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <h4>Cv</h4>
+                <div style="display: flex; ">
+                  <div>
+                    <input type="color" id="colorPicker" [(ngModel)]="colorPicker" name="color">
+                    
+                  </div>
+                  <div>
+                    <input type="color" id="colorPickerText" [(ngModel)]="colorPickerText" name="colorText">
+                    
+                  </div>
+                </div>
+                <h4>Edit image</h4>
+                <div style="display: flex; justify-content: space-between;">
+                  <div style="margin: 3px;">
+                    <label for="">Display</label> <br>
+                    <button class="btn btn-primary" (click)="hideImage()">{{imgAm}}</button>
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">width</label>
+                    <input type="text" style="height: 40px;"  [(ngModel)]="widthImage" name="widthImage">
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Heigth</label>
+                    <input type="text" style="height: 40px;" name="heightImage" [(ngModel)]="heightImage">
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Top</label>
+                    <input type="text" style="height: 40px;" name="topImage" [(ngModel)]="topImage">
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Left</label>
+                    <input type="text" style="height: 40px;" name="leftImage" [(ngModel)]="leftImage">
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Right</label>
+                    <input type="text" style="height: 40px;" name="rightImage" [(ngModel)]="rightImage">
+                  </div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Buttom</label>
+                    <input type="text" style="height: 40px;" name="bottomImage" [(ngModel)]="bottomImage">
+                  </div>
+                </div>
+                <h4>Section</h4>
+                <div style="display: flex; justify-content: space-between;">
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" [(ngModel)]="disableContact" type="checkbox" role="switch" id="Contact">
+                    <label class="form-check-label" for="Contact">Contact</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" [(ngModel)]="disableFormations" type="checkbox" role="switch" id="Formations">
+                    <label class="form-check-label" for="Formations">Formations</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableCompetences" role="switch" id="Conpetences">
+                    <label class="form-check-label" for="Competences">Compétences</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableExperience" role="switch" id="Experience">
+                    <label class="form-check-label" for="Experience">Expérience</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableLangues" role="switch" id="Langues">
+                    <label class="form-check-label" for="Langues">Langues</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableIcons" role="switch" id="icons">
+                    <label class="form-check-label" for="icons">Icons</label>
+                  </div>
+                </div>
+                <div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Size title</label>
+                    <input type="text" style="height: 40px;" name="sizeTitle" [(ngModel)]="sizeTitle">
+                  </div>
+                  <div>
+                    <select class="form-select" [(ngModel)]="fontFamilyValue" name="fontFamilyValue" aria-label="Default select example">
+                      <option [value]="i" *ngFor="let i of fontFamily">{{i}}</option>
+                      
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-12" *ngIf="cvData?.model == 2">
+          <button class="btn btn-primary" style="margin-left: 20px;" (click)="generatePdfmodelTwo()">Download</button>
+          <button class="btn btn-success" style="margin-left: 20px;" (click)="addEntretien(cvData)">+ Interview</button>
+          <div style="display: flex; justify-content: space-between;">
+            <div class="cv-container" id="modeltwo" *ngIf="cvData">
+
+              <div class="left-columnn" [ngStyle]="{'background-color':colorPickerTwo , 'color' : colorPickerTextTwo }">
+  
+  
+                <div class="section" style="margin-top: 30px;" *ngIf="disableContact">
+                  <h2  [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Contact</h2>
+  
+                  <ul class="skills">
+                    <li style="font-size: 11px;"><mat-icon *ngIf="disableIcons">email</mat-icon>{{ cvData?.contact?.mail }}</li>
+                    <li><mat-icon *ngIf="disableIcons">phone</mat-icon> {{ cvData?.contact?.tel }}</li>
+                    <li><mat-icon *ngIf="disableIcons"> location_on</mat-icon> {{ cvData?.contact?.adresse }}</li>
+                  </ul>
+  
+                </div>
+  
+                <div class="section" *ngIf="disableCompetences">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">COMPÉTENCES</h2>
+                  <ul class="skills" *ngFor="let competence of cvData?.competence?.competence">
+                    <li> {{competence}}</li>
+                  </ul>
+                </div>
+                <div class="section" *ngIf="disableLangues">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Langues</h2>
+                  <div *ngFor="let i of cvData?.langue?.langue">
+                    <p>{{i}}</p>
+                  </div>
+  
+                </div>
+                <div class="section" *ngIf="disableInterets">
+                  <h2 [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }">Centres d'intérêt</h2>
+                  <ul class="skills" *ngFor="let interet of cvData?.centreInteret?.interet">
+                    <li> {{interet}}</li>
+  
+                  </ul>
+                </div>
+              </div>
+              <div class="right-column">
+                <div class="header">
+                  <div class="hotkey">
+                    <h1 class="">{{ cvData?.entete?.prenom }} {{ cvData?.entete?.nom }}</h1>
+                    <p>{{ cvData?.entete?.profession }}</p>
+                  </div>
+  
+                </div>
+                <div class="content">
+                  <div class="section" *ngIf="disableExperience">
+                    <h2 class="text-gray" [ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }"style="font-family: cursive;">Expérience professionelle </h2>
+                    
+                        <ul *ngIf="cvData?.experience?.experience?.length > 0">
+                      <li *ngFor="let experienceItem of cvData?.experience?.experience"class="experience-item"style="margin-bottom: 20px;">
+                        <div>{{experienceItem.dateDeb.slice(0,4)}} - <i class="fas fa-long-arrow-alt-right"></i>
+                          {{experienceItem.dateFin.slice(0,4)}} | {{ experienceItem.entreprise }}</div>
+                        <div ><strong > {{ experienceItem.poste }}</strong></div>
+                        <div>{{ experienceItem.description }}</div>
+                      </li>
+                  
+                    </ul>
+  
+                  </div>
+  
+                  <div class="section" *ngIf="disableFormations">
+                    <h2 class="text-gray"[ngStyle]="{ 'font-size' : sizeTitle+'px' , 'font-family' : fontFamilyValue }"> Formation</h2>
+                    <ul *ngIf="cvData?.formation?.formation?.length > 0">
+                      <li *ngFor="let i of cvData?.formation?.formation"style="margin-bottom: 20px;">
+                        
+                          <div>{{i.dateDeb.slice(0,4)}} - <i class="fas fa-long-arrow-alt-right"></i>
+                            {{i.dateFin.slice(0,4)}}</div>
+                          
+                          <div><strong>{{i.diplome}}</strong></div> 
+                          <div>{{i.etablissement}}</div> 
+                      </li> 
+                      </ul> 
+  
+  
+                  </div>
+                
+                </div>
+              </div>
+              
+            </div>
+            <div>
+              <div>
+                <h4>Cv</h4>
+                <div style="display: flex; ">
+                  <div>
+                    <input type="color" id="colorPickerTwo" [(ngModel)]="colorPickerTwo" name="colorPickerTwo">
+                    
+                  </div>
+                  <div>
+                    <input type="color" id="colorPickerTextTwo" [(ngModel)]="colorPickerTextTwo" name="colorPickerTextTwo">
+                    
+                  </div>
+                </div>
+               
+                <h4>Section</h4>
+                <div style="display: flex; justify-content: space-between;">
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" [(ngModel)]="disableContact" type="checkbox" role="switch" id="Contact">
+                    <label class="form-check-label" for="Contact">Contact</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" [(ngModel)]="disableFormations" type="checkbox" role="switch" id="Formations">
+                    <label class="form-check-label" for="Formations">Formations</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableCompetences" role="switch" id="Conpetences">
+                    <label class="form-check-label" for="Competences">Compétences</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableExperience" role="switch" id="Experience">
+                    <label class="form-check-label" for="Experience">Expérience</label>
+                  </div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableLangues" role="switch" id="Langues">
+                    <label class="form-check-label" for="Langues">Langues</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-check form-switch" style="margin: 3px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="disableIcons" role="switch" id="icons">
+                    <label class="form-check-label" for="icons">Icons</label>
+                  </div>
+                </div>
+                <div>
+                  <div style="width: 70px; margin: 3px;">
+                    <label for="">Size title</label>
+                    <input type="text" style="height: 40px;" name="sizeTitle" [(ngModel)]="sizeTitle">
+                  </div>
+                  <div>
+                    <select class="form-select" [(ngModel)]="fontFamilyValue" name="fontFamilyValue" aria-label="Default select example">
+                      <option [value]="i" *ngFor="let i of fontFamily">{{i}}</option>
+                      
+                    </select>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div> 

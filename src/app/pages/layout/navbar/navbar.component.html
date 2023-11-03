@@ -1,0 +1,124 @@
+<mat-toolbar class="header">
+  <div class="nav-left">
+    <button class="btn-mobile-principal" type="button" aria-label="Toggle sidenav" mat-icon-button
+      (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+
+    <button mat-button class="btn-chevron" onclick="isExp()" (click)="isExpanded = !isExpanded">
+      <mat-icon mat-list-icon class="chevron-button sidenav-button" [ngClass]="{'rotated': isExpanded}">
+        menu
+      </mat-icon>
+    </button>
+    <a *ngIf="user.role==='condidat'"class="navbar-brand me-0 px-3 fs-6 slide-in-blurred-top"[ngStyle]="{ color: 'blue' }" [ngClass]="{ 'va-et-vient': true }" >
+      Espace Candidat
+    </a>
+    <a *ngIf="user.role==='recruteur'" class="navbar-brand me-0 px-3 fs-6 slide-in-blurred-top"[ngStyle]="{ color: 'blue' }" [ngClass]="{ 'va-et-vient': true }" >
+      Espace Recruteur
+    </a>
+  </div>
+
+
+  <div class="navbar-nav custom-navbar">
+    <div class="nav-item text-nowrap nav-header px-0">
+    
+      <div class="dropdown px-md-3 px-xs-2 px-sm-2 m-auto ">
+        <a href="#"
+          class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle slide-in-blurred-top m-auto"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <div  >
+            <img *ngIf="!this.user?.picture" style="width: 50px; border-radius: 50%; height: 50px;" src="http://pluspng.com/img-png/user-png-icon-download-icons-logos-emojis-users-2240.png" alt=""
+              width="40" height="40" class="rounded me-2 color-change-2x1">
+            <img *ngIf="this.user?.picture" style="width: 50px; border-radius: 50%; height: 50px;" src="http://localhost:8081/api/public/picture/{{user?.picture}}" 
+              >
+
+          </div>
+        </a>
+        <ul
+          class="dropdown-menu ul-profil dropdown-menu-perso dropdown-menu-light text-small shadow  slide-in-blurred-top"
+          style="inset: none;">
+          <li>
+            <div class="li-profil-img">
+      
+              {{user?.firstName}} {{user?.lastName}}
+            </div>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li *ngIf="user?.role!=='admin'">
+            <a class="dropdown-item" [routerLink]="'view-user'" >
+              <mat-icon>person</mat-icon>
+              <span>Mon Profil</span>
+            </a>
+          </li>
+          <li><a class="dropdown-item " [routerLink]="'change-password'">
+              <mat-icon>settings</mat-icon>
+              <span>Mot de passe</span>
+            </a></li>
+          <li>
+            <a class="dropdown-item " (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Déconnexion</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container" autosize id="sidenav">
+
+  <mat-sidenav #drawer class="sidenav menu swing-in-left-bck"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false" [ngClass]="{'new-width': isExpanded}">
+
+    <mat-nav-list class=" menu-style" [ngClass]="{'new-style-css': isExpanded}">
+      <mat-list-item [routerLink]="'dashboard'" *ngIf="user?.role=='admin'" routerLinkActive="active"
+      class="list-item">
+      <mat-icon mat-list-icon class="icon-link">assessment</mat-icon>
+      <span>Dashboard</span>
+    </mat-list-item>
+      <mat-list-item [routerLink]="'liste-demande'" *ngIf="user?.role=='admin'" routerLinkActive="active"
+        class="list-item">
+        <mat-icon mat-list-icon class="icon-link">how_to_reg</mat-icon>
+        <span>Liste des demandes</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'view-user'" *ngIf="user?.role!=='admin'" routerLinkActive="active"
+        class="list-item">
+        <mat-icon mat-list-icon class="icon-link">account_circle</mat-icon>
+        <span>Mon Profil</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'cvImport'"*ngIf="user?.role=='condidat'" routerLinkActive="active" class="list-item">
+        <mat-icon mat-list-icon class="icon-link">note_add</mat-icon>
+        <span>Créer un CV</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'edit-cv'"*ngIf="user?.role=='condidat'" routerLinkActive="active" class="list-item">
+        <mat-icon mat-list-icon class="icon-link">edit</mat-icon>
+        <span>Modifier CV</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'my-cv'"*ngIf="user?.role=='condidat'" routerLinkActive="active" class="list-item">
+        <mat-icon mat-list-icon class="icon-link">visibility</mat-icon>
+        <span>Consulter CV</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'list-condidat'" *ngIf=" user?.role!=='admin' " routerLinkActive="active" class="list-item">
+        <mat-icon mat-list-icon class="icon-link">group</mat-icon>
+        <span>Liste Candidats</span>
+      </mat-list-item>
+      
+
+    </mat-nav-list>
+
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+

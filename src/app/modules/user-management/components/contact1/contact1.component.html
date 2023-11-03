@@ -1,0 +1,46 @@
+<form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+    <div class=" row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Téléphone</label>
+                <input type="tel" name="tel" class="form-control" placeholder="Téléphone" formControlName="tel">
+                <div *ngIf="tel?.touched && tel?.invalid" >
+                    <small class="text-danger" *ngIf="tel?.errors?.['required']">Numéro de téléphone
+                        est obligatoire</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                
+                <label>Adresse mail</label>
+                <input type="email" name="mail" class="form-control" placeholder="email@mail.com" formControlName="mail" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                <div *ngIf="mail.invalid && (mail.dirty || mail.touched)" class="text-danger">
+                    <small *ngIf="mail.errors.required">L'e-mail est obligatoire</small>
+                    <small *ngIf="mail.hasError('pattern')">L'e-mail n'est pas valide</small>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Adresse postale</label>
+                <input type="text" name="adresse" id="adresse" class="form-control" placeholder="Adresse"
+                    formControlName="adresse">
+                    <div *ngIf="adresse?.touched && adresse?.invalid" >
+                        <small class="text-danger" *ngIf="adresse?.errors?.['required']">Adresse postale 
+                            est obligatoire</small>
+                    </div>
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <button mat-raised-button type="submit" [disabled]="contactForm.invalid" color="primary"><mat-icon>done</mat-icon>
+				Terminé</button>
+        </div>
+
+    </div>
+
+
+
+</form>

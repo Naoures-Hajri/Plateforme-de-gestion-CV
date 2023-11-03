@@ -1,0 +1,54 @@
+<div class="title-dialog d-flex align-items-center">
+    <h2>Modifier Formation</h2>
+    <i type="button" (click)="closeDialog()" class="fa fa-times text-secondary" style="padding-left: 880px;"></i>
+</div>
+<hr>
+
+
+<div mat-dialog-content class="dialog-user">
+    <div >
+        
+        <div class="col-md-12">
+            <div class="formation-block">
+                
+
+                    <div class="form-group row" style="padding: 20px;">
+                        <div class="col-sm-6">
+                            <label>Date de début</label>
+                            <input type="date" name="formationdateDeb" 
+                                [(ngModel)]="formationForm.dateDeb " class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Date de fin</label>
+                            <input type="date" name="formationdateFin"
+                                [(ngModel)]="formationForm.dateFin" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="padding: 20px;">
+                        <div class="col-sm-6">
+                            <label>Diplôme</label>
+                            <input type="text" name="formationdiplome"
+                                [(ngModel)]="formationForm.diplome" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Établissement</label>
+                            <input type="text" name="formationetablissement"
+                                [(ngModel)]="formationForm.etablissement" class="form-control">
+                        </div>
+
+                        <div class="col-sm-12" style="margin-top: 20px;padding-left: 780px">
+                            <button type="button" class="btn btn-outline-success"(click)="edit()">
+                                <i class="fa fa-check-circle"></i> Confirmer
+                              </button>
+                              <button type="button"(click)="closeDialog()" class="btn btn-outline-secondary"style="margin-left: 20px;">
+                                <i class="fa fa-times"></i> Annuler
+                              </button>
+                         </div>
+                    </div>
+
+                
+            </div>
+        </div>
+       
+    </div>
+</div>

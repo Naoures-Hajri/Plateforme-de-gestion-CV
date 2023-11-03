@@ -1,0 +1,155 @@
+<div class="div-main">
+
+
+	<div class="row d-flex justify-content-center py-4">
+		<div class="col-12">
+			<div class="container " style="margin-top: 20px;">
+			
+
+				<form [formGroup]="cvForm">
+
+					<div id="demo-accordion-collapse" role="tablist">
+						<div class="card">
+							<div class="card-header" role="tab" id="accord1">
+								
+								<button style="font-weight: bold;" id="btnbtn" data-toggle="collapse"
+									href="#collapse-pane-1" role="button" aria-expanded="true"
+									aria-controls="collapse-pane-1" mat-button><mat-icon>line_weight</mat-icon>
+									ENTETE
+								</button>
+							</div>
+
+							<div id="collapse-pane-1" class="collapse show" role="tabpanel" aria-labelledby="accord1"
+								data-parent="#demo-accordion-collapse">
+								<div class="card-body">
+									<app-entete (enteteData)="handleEnteteData($event)"></app-entete>
+								</div>
+
+							</div>
+							<div class="card">
+								<div class="card-header" role="tab" id="accord2">
+								
+									<button style="font-weight: bold;" id="btnbtn" data-toggle="collapse"
+										href="#collapse-pane-2" role="button" aria-expanded="true"
+										aria-controls="collapse-pane-2" mat-button><mat-icon>line_weight</mat-icon>
+										CONTACT
+									</button>
+								</div>
+
+								<div id="collapse-pane-2" class="collapse show" role="tabpanel"
+									aria-labelledby="accord2" data-parent="#demo-accordion-collapse">
+									<div class="card-body">
+
+										<app-contact1 (contactData)="handleContactData($event)"></app-contact1>
+										<!-- Display Contact Information -->
+
+									</div>
+
+								</div>
+								<div class="card">
+									<div class="card-header" role="tab" id="accord3">
+										<h5 class="mb-0">
+											<button style="font-weight: bold;" id="btnbtn" data-toggle="collapse"
+											href="#collapse-pane-3" role="button" aria-expanded="true"
+											aria-controls="collapse-pane-3"
+											mat-button><mat-icon>line_weight</mat-icon>
+											COMPETENCES
+										</button>
+										</h5>
+									</div>
+									<div id="collapse-pane-3" class="collapse" role="tabpanel" aria-labelledby="accord3"
+										data-parent="#demo-accordion-collapse">
+										<app-competence1
+											(competenceData)="handleCompetenceData($event)"></app-competence1>
+
+
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" role="tab" id="accord4">
+										<h5 class="mb-0">
+
+
+											<button style="font-weight: bold;" id="btnbtn" data-toggle="collapse"
+												href="#collapse-pane-4" role="button" aria-expanded="true"
+												aria-controls="collapse-pane-4"
+												mat-button><mat-icon>line_weight</mat-icon>
+												CENTRE D'INTERET
+											</button>
+										</h5>
+									</div>
+									<div id="collapse-pane-4" class="collapse" role="tabpanel" aria-labelledby="accord3"
+										data-parent="#demo-accordion-collapse">
+										<app-hobbies (interetData)="handleInteretData($event)"></app-hobbies>
+
+									</div>
+									<div class="card">
+										<div class="card-header" role="tab" id="accord5">
+											<h5 class="mb-0">
+
+												<button style="font-weight: bold;" id="btnbtn" data-toggle="collapse"
+													href="#collapse-pane-5" role="button" aria-expanded="true"
+													aria-controls="collapse-pane-5"
+													mat-button><mat-icon>line_weight</mat-icon>
+													FORMATION
+												</button>
+											</h5>
+										</div>
+										<div id="collapse-pane-5" class="collapse" role="tabpanel"
+											aria-labelledby="accord4" data-parent="#demo-accordion-collapse">
+
+											<app-formation1
+												(formationData)="handleFormationData($event)"></app-formation1>
+										</div>
+										<div class="card">
+											<div class="card-header" role="tab" id="accord6">
+												<h5 class="mb-0">
+
+													<button style="font-weight: bold;" id="btnbtn"
+														data-toggle="collapse" href="#collapse-pane-6" role="button"
+														aria-expanded="true" aria-controls="collapse-pane-6"
+														mat-button><mat-icon>line_weight</mat-icon>
+														EXPERIENCE
+													</button>
+												</h5>
+											</div>
+											<div id="collapse-pane-6" class="collapse" role="tabpanel"
+												aria-labelledby="accord6" data-parent="#demo-accordion-collapse">
+												<app-experience1
+													(experienceData)="handleExperienceData($event)"></app-experience1>
+											</div>
+											<div class="card">
+												<div class="card-header" role="tab" id="accord7">
+													<h5 class="mb-0">
+
+														<button style="font-weight: bold;" id="btnbtn"
+															data-toggle="collapse" href="#collapse-pane-7" role="button"
+															aria-expanded="true" aria-controls="collapse-pane-7"
+															mat-button><mat-icon>line_weight</mat-icon>
+															LANGUES
+														</button>
+
+													</h5>
+												</div>
+												<div id="collapse-pane-7" class="collapse" role="tabpanel"
+													aria-labelledby="accord7" data-parent="#demo-accordion-collapse">
+													<app-langue1 (langueData)="handleLangueData($event)"></app-langue1>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="text-center">
+						<button (click)="saveCV()" class="btn btn-primary" style="font-size:18px;margin-top: 20px;">
+							 Sauvegarder
+						</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>

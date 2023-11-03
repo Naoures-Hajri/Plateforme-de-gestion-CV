@@ -1,0 +1,33 @@
+<div class="w-100 title-dialog">
+    <H2>Comments</H2>
+    <hr>
+</div>
+
+
+<div mat-dialog-content class="dialog-user" style="width: 500px;">
+    
+    <div class="card mb-2" *ngFor="let i of comments">
+        <div class="card-body p-2 p-sm-3">
+            <div class="media forum-item">
+               <img *ngIf="i.recId.picture" src="http://localhost:8081/api/public/picture/{{i.recId.picture}}" class="mr-3 rounded-circle" style="width: 70px ; height: 70px;" alt="User" />
+               <img *ngIf="!i.recId.picture" src="http://pluspng.com/img-png/user-png-icon-download-icons-logos-emojis-users-2240.png" class="mr-3 rounded-circle" style="width: 70px ; height: 70px;" alt="User" />
+
+                <div class="media-body">
+                    <h3>{{i.recId.firstName}} {{i.recId.lastName}}</h3>
+                    <p class="text-secondary">
+                        {{i.comment}}
+                    </p>
+                    <p class="text-muted"><span class="text-secondary font-weight-bold">{{i.ago}}</span></p>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <textarea name="comment" [(ngModel)]="comment" class="form-control" id="" cols="4" rows="3"></textarea>
+    </div>
+    <div style="display: flex; justify-content: right; margin-top: 10px;">
+        <button (click)="saveComment()" class="btn btn-success">Comment</button>
+    </div>
+</div>

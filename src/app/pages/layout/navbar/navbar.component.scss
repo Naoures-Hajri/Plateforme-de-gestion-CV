@@ -1,0 +1,16 @@
+.mat-drawer-container{
+    position: fixed !important;
+    width: 100% !important;
+}
+.va-et-vient {
+    animation: va-et-vient 2s infinite alternate;
+  }
+  
+  @keyframes va-et-vient {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(10px); /* Adjust the distance as needed */
+    }
+  }

@@ -1,0 +1,47 @@
+<div class="card-body">
+  <form [formGroup]="experienceForm">
+    <div formArrayName="experiences">
+      <ng-container *ngFor="let experienceCtrl of experiences.controls; let i=index">
+        <div [formGroupName]="i" class="formation-group">
+          <div class="card mb-3">
+            <div class="card-header formation-index">
+              Experience {{ i + 1 }}
+              <i type="button" (click)="removeExperience(i)" class="fa fa-trash" aria-hidden="true" style="padding: 10px 10px 10px 20px;margin-left:750px;"></i>
+            </div>
+            <div class="form-group row"style="padding: 10px;">
+              <div class="col-sm-6">
+                <label>Poste</label>
+                <input type="text" name="poste" id="poste" formControlName="poste" class="form-control">
+                
+              </div>
+              <div class="col-sm-6">
+                <label>Entreprise</label>
+                <input type="text"name="entreprise" id="entreprise" formControlName="entreprise" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row"style="padding: 10px;">
+              <div class="col-sm-6">
+                <label>Date de début</label>
+                <input type="date"name="dateDeb" id="dateDeb" formControlName="dateDeb" class="form-control">
+              </div>
+              <div class="col-sm-6">
+                <label>Date de fin</label>
+                <input type="date"name="dateFin" id="dateFin" formControlName="dateFin" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row"style="padding: 10px;">
+              <label>Description</label>
+              <textarea class="form-control"name="description" id="description" rows="10" formControlName="description"></textarea>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <button mat-raised-button type="submit" style="font-size:18px" color="primary" (click)="saveExperience()" >
+      <mat-icon>done</mat-icon> Terminé
+    </button>
+    <button mat-raised-button type="submit" (click)="addExperience()" style="font-size:18px; margin-left:300px;" color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
+  </form>
+</div>

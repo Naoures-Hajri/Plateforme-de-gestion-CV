@@ -1,0 +1,50 @@
+<div class="card-body">
+    <div *ngFor="let block of blocks; let i = index"class="experience-block">
+        <div class="card"style="width: 80 px;height: 50 px">
+          <div class="card-header experience-index">
+            Expérience {{ i + 1 }}
+            <i type="button" (click)="delete(i)" class="fa fa-trash" aria-hidden="true" style="padding: 10px 10px 10px 20px;margin-left:700px;"></i>
+          </div>
+          <div class="card-body">
+            <div class="form-group row"style="padding: 10px;">
+              <div class="col-sm-6">
+                <label>Poste</label>
+                <input type="text" name="poste" id="poste" class="form-control"  [(ngModel)]="block.poste" required>
+              </div>
+              <div class="col-sm-6">
+                <label>Entreprise</label>
+                <input type="text" name="entreprise" id="entreprise" class="form-control"  [(ngModel)]="block.entreprise" required>
+              </div>
+            </div>
+            <div class="form-group row"style="padding: 10px;">
+              <div class="col-sm-6">
+                <label>Date début</label>
+                <input type="date" name="dateDeb" id="dateDeb" class="form-control"  [ngModel]="block.dateDeb | date:'yyyy-MM-dd'"
+                (ngModelChange)="updateDate($event)"
+                 required>
+              </div>
+              <div class="col-sm-6">
+                <label>Date fin</label>
+                <input type="date" name="dateFin" id="dateFin" class="form-control"   [(ngModel)]="block.dateFin"
+                (ngModelChange)="updateDate($event)"
+                 required>
+              </div>
+            </div>
+            <div class="form-group row"style="padding: 10px;">
+              <label>Description</label>
+              <textarea class="form-control" rows="10" name="description" placeholder="Description" [(ngModel)]="block.description" required></textarea>
+            </div>
+          </div>
+         
+        </div>
+    
+      </div>
+      <button mat-raised-button type="submit" style="font-size:18px" color="primary" (click)="saveExperience()" >
+        <mat-icon>done</mat-icon> Terminé
+      </button>
+      <button mat-raised-button type="submit" (click)="addNewBloc()" style="font-size:18px; margin-left:300px;" color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div> 
+    
+      

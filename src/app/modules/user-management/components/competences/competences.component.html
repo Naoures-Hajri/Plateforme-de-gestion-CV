@@ -1,0 +1,29 @@
+<div class="card-body" >
+    <form [formGroup]="compForm" >
+      <div formArrayName="competence" class="input-group mb-3" *ngFor="let c of existingComp().controls; let i=index">
+        <input type="text" class="form-control" aria-describedby="basic-addon2" [formControlName]="i">
+        <span class="input-group-text" id="basic-addon2">
+          <i type="button" (click)="delete(i)" class="fa fa-trash" aria-hidden="true"></i>
+        </span>
+        
+      </div>
+       
+      <div formArrayName="newComp">
+        <div class="input-group mb-3" *ngFor="let new of newComp().controls; let i=index" [formGroupName]="i">  
+          <input type="text" name="compt" formControlName="compt" aria-describedby="basic-addon2" class="form-control">  
+          <span class="input-group-text" id="basic-addon2">
+            <i type="button" (click)="deleteNew(i)" class="fa fa-trash" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+      
+      <div class="col-md-11" style="margin-bottom: 10px;">
+        <button mat-raised-button (click)="saveCompetence($event)" type="submit" color="primary" [disabled]="compForm.get('competence').value === ''"><mat-icon>done</mat-icon>
+          Terminé</button>
+        <button (click)="addItem($event)" color="primary" style="font-size:18px; margin-left:300px;" mat-raised-button type="submit"><mat-icon>add</mat-icon>
+          </button>
+      </div>
+    </form>
+    
+  </div>
+   

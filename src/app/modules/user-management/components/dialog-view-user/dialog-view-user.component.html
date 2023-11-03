@@ -1,0 +1,85 @@
+<div class="title-dialog">
+    <H2>Liste des recruteurs</H2>
+    <hr>
+</div>
+
+
+<div mat-dialog-content class="dialog-user">
+    <div class="row py-4 px-2">
+        <div class="col-sm-4 col-md-4 col-lg-3">
+            <div class="card-user card card-view-user">
+                <div class="image"style="margin-top: 20px;">
+                    
+                    <div class="col-sm-12"><p class="description user-id">{{data?.firstName}} {{data?.lastName}}</p>
+                </div>  
+                <div class="image"style="margin-top: 40px;">  
+                    <img alt="..." style="width: 500px; height: 500px; padding-left: 180px" class="avatar border-gray"
+     [src]="data?.picture ? 'http://localhost:8081/api/public/picture/' + data.picture : 'http://pluspng.com/img-png/user-png-icon-download-icons-logos-emojis-users-2240.png'">
+                </div>
+            </div>
+                <div class="card-body">
+                    <div class="author">
+                    </div>
+                    <p *ngIf="data?.role == 'condidat'" class="description text-center">"{{data?.profession}}"</p>
+                </div>
+                <hr>
+                <div *ngIf="user?.role == 'admin'">
+                    <div class="button-container"style="margin-top: 30px; position: relative;">
+                        <div class="d-flex align-items-center">
+                        <button *ngIf="data.valid == false" (click)="acceptUser()" mat-button class="btn btn-outline-success">
+                            <mat-icon>checked</mat-icon>
+                            ACCEPTER
+                        </button>
+                        <button (click)="deleteUser()" style="border: 1px solid white;" mat-button class="btn btn-outline-danger">
+                            <mat-icon>close</mat-icon>
+                            Supprimer
+                        </button>
+                        </div>
+                    </div>
+                </div>
+              
+                
+                
+                
+                
+                
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-md-8 col-lg-9 ">
+            <div class="card-user card card-info-user">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">First Name</p>
+                        <p class="description-info">{{data?.firstName}}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">Last Name</p>
+                        <p class="description-info">{{data?.lastName}}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">Email</p>
+                        <p class="description-info">{{data?.email}}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">Téléphone</p>
+                        <p class="description-info">{{data?.phone}}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">Nom de l'entreprise</p>
+                        <p class="description-info">{{data?.entreprise}}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-2">
+                        <p class="title-info">Email de l'entreprise</p>
+                        <p class="description-info">{{data?.emailEntreprise}}</p>
+                    </div>
+                    <div class="col-sm-12 col-md-8 mb-2">
+                        <p class="title-info">Addresse Postale</p>
+                        <p class="description-info">{{data?.localisation}}</p>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

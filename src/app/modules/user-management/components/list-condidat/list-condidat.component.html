@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+    integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<div class="div-main">
+
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-12">
+            <div class="container">
+                <div class="row align-items-center" *ngIf="me && me.role !== 'condidat' ">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h5 class="card-title">Condidats List <span
+                                    class="text-muted fw-normal ms-2">({{condidats?.length}})</span></h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="row" *ngIf="me && me.role !== 'condidat' ">
+                        <div class="col-3">
+                            <input type="text" [(ngModel)]="recherche" name="recherche" placeholder="Search Name">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" [(ngModel)]="comp" name="comp" placeholder="Search Competance">
+                        </div>
+                        <div class="col-2" style="height: 45px;">
+                            <button (click)="filterCondidat()" class="btn btn-success"
+                                style="height: 100%;">Search</button>
+
+                        </div>
+                        <div class="col-2" style="height: 45px;">
+                            <button (click)="reset()" class="btn btn-primary"
+                                style="height: 100%;">Reset</button>
+
+                        </div>
+                    </div>
+
+                    <div [ngClass]="me?.role==='condidat' ? 'col-xl-12' : 'col-xl-3'" style="margin-top: 15px;" *ngFor="let item of condidats">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center">
+                                    <div><img src="http://localhost:8081/api/public/picture/{{item.picture}}" alt=""
+                                            class="avatar-md rounded-circle img-thumbnail" /></div>
+                                    <div class="flex-1 ms-3">
+                                        <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">{{item.firstName}}
+                                                {{item.lastName}}</a></h5>
+                                        <span class="badge badge-soft-success mb-0">{{item.profession ?? "__"}}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-1">
+                                    <p class="text-muted mb-0"><i
+                                            class="mdi mdi-phone font-size-15 align-middle pe-2 text-primary"></i>
+                                        {{item.phone}}</p>
+                                    <p class="text-muted mb-0 mt-2"><i
+                                            class="mdi mdi-email font-size-15 align-middle pe-2 text-primary"></i>
+                                        {{item.email}}</p>
+
+                                </div>
+                                <div class="d-flex gap-2 pt-4">
+
+                                    <button (click)="voirCv(item)" type="button" class="btn btn-primary btn-sm w-50" *ngIf="me && me.role !== 'condidat' ">Voir CV</button>
+                                    <button (click)="openComments(item)" type="button" class="btn btn-success btn-sm w-50"><i
+                                            class="bx bx-message-square-dots me-1"></i> Comments</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row g-0 align-items-center pb-4" *ngIf="me && me.role !== 'condidat' ">
+                    <div class="col-sm-6">
+                        <div>
+                            <p class="mb-sm-0">Showing 1 to 10 of 57 entries</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="float-sm-end">
+                            <ul class="pagination mb-sm-0">
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                </li>
+                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

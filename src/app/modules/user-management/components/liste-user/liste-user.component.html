@@ -1,0 +1,142 @@
+<div class="div-main">
+  <div class="title-page">
+    <h2>Liste User</h2>
+
+  </div>
+
+  <div class="row custom-div-liste-user">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  user-list-container">
+          <div class="menu-table-user">
+            
+            <div class="btn-actiontable">
+              <button mat-button class="btn-menu-table" (click)="openDialogAddUser()">
+                Add new user
+              </button>
+
+              <button mat-button [matMenuTriggerFor]="menu" class="btn-menu-table">
+                More options
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu" #aboveMenu="matMenu" class="custom-mat-menu ">
+
+                <button mat-menu-item>
+                  <mat-icon>person_remove</mat-icon>
+                  <span>Remove</span>
+                </button>
+
+                <button mat-menu-item>
+                  <mat-icon>file_download</mat-icon>
+                  <span>Export</span>
+                </button>
+
+              </mat-menu>
+            </div>
+
+            <div class="search-table">
+              <input class="form-control form-control-light  rounded-0 border-0 search-input-table" id="input" type="text" placeholder="Search"
+                 aria-label="Search" (keyup)="applyFilter($event)" #input>
+            </div>
+          </div>
+
+          <as-split direction="vertical" class="userlist-split">
+            <as-split-area [maxSize]="70" class="spliter-h">
+              
+              <div class="example-container">           
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 liste-user-table" tabindex="0">
+
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null" class="list-user-checkbox"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)" class="list-user-checkbox">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+
+
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td class="name" mat-cell *matCellDef="let element">
+                    <img src="../../../../../assets/images/pict-user.jpg" class="img-user-liste">
+                    {{element.name}}
+                  </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action" class="btn-action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-icon-manage"
+                      aria-label="Example icon-button with a menu">
+                      <mat-icon>manage_accounts</mat-icon>
+                    </button>
+
+                    <mat-menu #menu="matMenu" #aboveMenu="matMenu" yPosition="below" xPosition="before"
+                      class="custom-mat-menu ">
+                      <button mat-menu-item (click)="openDialogEditUser()">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit </span>
+                      </button>
+
+                      <button mat-menu-item>
+                        <mat-icon>person_remove</mat-icon>
+                        <span>Remove</span>
+                      </button>
+
+                      <button mat-menu-item (click)="openDialogViewUser()">
+                        <mat-icon>visibility</mat-icon>
+                        <span>View</span>
+                      </button>
+
+                    </mat-menu>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+                </table>
+            </div>
+           </as-split-area>
+           <as-split-area  class="spliter-b">
+              <!---->
+              <mat-paginator #paginator  [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+              </mat-paginator>
+              <!---->
+           </as-split-area>
+        </as-split>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+          
+        </div>
+      
+    </div>
+  </div>

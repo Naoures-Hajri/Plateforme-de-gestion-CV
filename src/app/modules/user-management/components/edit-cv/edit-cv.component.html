@@ -1,0 +1,339 @@
+<div class="div-main">
+
+
+	<div class="row d-flex justify-content-center py-4">
+		<div class="col-12">
+			<div class="container">
+				
+				<form>
+					<div class="form-group row">
+						<div class="col-md-5"></div>
+						<div class="col-md-4">
+							<label>
+								<div (click)="fileInput.click()" >
+
+									<img alt="..." style=" width: 100px; height: 100px; border-radius: 50px;margin-left: auto; margin-right: auto;"
+										src="http://localhost:8081/api/public/picture/{{this.cv?.entete.image}}">
+				
+								</div>
+					
+								
+							</label>
+
+							<input type="file" #fileInput class="form-control" accept="image/*" hidden  (change)="uploadFile($event)">
+
+
+						</div>
+					</div>
+
+					<mat-form-field appearance="outline">
+						<mat-label><h2>ENTETE</h2></mat-label>
+						<br>
+						<div class="form-group row"style="padding: 10px;">
+						  <div class="col-md-6">
+							<label>Nom</label>
+							<input matInput type="text" name="nom" id="nom" placeholder="Nom" [(ngModel)]="entete.nom">
+						  </div>
+						  <div class="col-md-6">
+							<label>Prénom</label>
+							<input matInput type="text" name="prenom" id="prenom" placeholder="Prénom" [(ngModel)]="entete.prenom">
+						  </div>
+						</div>
+						<div class="form-group row"style="padding: 10px;">
+						  <div class="col-md-6">
+							<label>Profession</label>
+							<input matInput type="text" name="profession" id="profession" [(ngModel)]="entete.profession" placeholder="Profession">
+						  </div>
+						</div>
+			
+						<div class="col-md-12" style="margin-top: 10px; margin-bottom: 10px;">
+						  <button mat-raised-button type="submit" (click)="editentete()" color="primary"><mat-icon>done</mat-icon> Terminé</button>
+						</div>
+					  </mat-form-field>
+					  <mat-form-field appearance="outline">
+						<mat-label><h2>CONTACT</h2></mat-label>
+						<br>
+						<div class="form-group row"style="padding: 10px;">
+						  <div class="col-md-6">
+							<label>Téléphone</label>
+							<input matInput type="text" name="tel" id="tel" placeholder="Téléphone" [(ngModel)]="contact.tel">
+						  </div>
+						  <div class="col-md-6">
+							<label>Adresse mail</label>
+							<input matInput type="text" name="mail" id="mail"  [(ngModel)]="contact.mail">
+						  </div>
+						</div>
+						<div class="form-group row"style="padding: 10px;">
+						  <div class="col-md-6">
+							<label>Adresse postale</label>
+							<input matInput type="text" name="adresse" id="adresse" [(ngModel)]="contact.adresse">
+						  </div>
+						</div>
+			
+						<div class="col-md-12" style="margin-top: 10px; margin-bottom: 10px;">
+						  <button mat-raised-button type="submit" (click)="editContact()" color="primary"><mat-icon>done</mat-icon> Terminé</button>
+						</div>
+					  </mat-form-field>
+					 
+						
+					
+
+					<div>
+						<div class="col-md-12" style="margin-top: 20px; padding: 20px;">
+						<h2>Compétence</h2>
+						
+
+							<table class="table">
+								<thead class="table-dark">
+									<tr>
+									  <th scope="col">Compétence</th>
+									  <th scope="col">Action</th>
+									</tr>
+								  </thead>
+								<tbody>
+									
+									<tr *ngFor="let item of competence; let i = index">
+								  
+										
+								 
+									<td>{{ item }}</td>
+									
+									<td >
+									  <i type="button"  (click)="deleteComp(item)" class="fa fa-trash text-danger" aria-hidden="true" ></i>
+									  <i type="button" (click)="editComTab(item, i)" class="bi bi-pencil-square text-primary" aria-hidden="true" style="margin-left: 50px;"></i>
+									</td>
+								  </tr>
+								</tbody>
+							  </table>
+							  
+
+
+						</div>
+
+						<div class="col-md-11">
+							<div class="input-group mb-3">
+								<input type="text" name="competence" [(ngModel)]="inputComp"
+									placeholder="entrer une compétence" class="form-control"
+									aria-describedby="basic-addon2">
+							</div>
+						</div>
+						<div class="col-md-1">
+
+							<a color="primary" (click)="pushCom()" style="color: beige;" mat-raised-button
+								type="submit"><mat-icon>add</mat-icon>
+							</a>
+
+						</div>
+
+					</div>
+					<div class="col-md-11" style="margin-bottom: 10px;">
+						<button mat-raised-button type="submit" (click)="editcompetence()"
+							color="primary"><mat-icon>done</mat-icon>
+							Terminé</button>
+					</div>
+
+					<div>
+
+						<div class="col-md-12" style="margin-top: 20px;">
+							<h2>Formation</h2>
+							<table class="table" *ngIf="formation.length > 0">
+
+								<tbody>
+									<tr *ngFor="let i of formation ">
+										<td>{{i.etablissement}}</td>
+										<td>{{i.diplome}}</td>
+										<td>{{i.dateDeb.slice(0,10)}}</td>
+										<td>{{i.dateFin.slice(0,10)}}</td>
+										<td>
+											<a><i type="button" class="fa fa-trash text-danger" aria-hidden="true"
+												(click)="deleteFormation(i)"></i></a>
+
+											<a>
+												<i type="button" style="margin-left: 50px;"
+													(click)="editFormationTab(i)" class="bi bi-pencil-square text-primary"
+													aria-hidden="true"></i></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="alert alert-warning" *ngIf="formation.length == 0">Pas de formation</div>
+
+						</div>
+						<div class="col-md-12">
+							<div class="formation-block">
+								<div class="card mb-3">
+
+									<div class="form-group row" style="padding: 10px;">
+										<div class="col-sm-6">
+											
+												<label>Date de début</label>
+												<input  type="date" name="formationdateDeb"
+												[(ngModel)]="formationForm.dateDeb" class="form-control">	
+										</div>
+										<div class="col-sm-6">
+											
+												<label>Date de fin</label>
+												<input  type="date" name="formationdateFin"
+												[(ngModel)]="formationForm.dateFin" class="form-control">
+											  
+										</div>
+									</div>
+									<div class="form-group row" style="padding: 10px;">
+										<div class="col-sm-6">
+											<label>Diplôme</label>
+											<input matInput type="text" name="diplome" id="diplome" 
+											 [(ngModel)]="formationForm.diplome"class="form-control">
+										</div>
+										<div class="col-sm-6">
+											<label>Établissement</label>
+											<input matInput type="text" name="formationetablissement" 
+												[(ngModel)]="formationForm.etablissement" class="form-control">
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="col-md-11" style="margin-bottom: 10px;">
+						<button (click)="editformation()" mat-raised-button type="submit"
+							color="primary"><mat-icon>done</mat-icon>
+							Terminé</button>
+						<a color="primary" style="color: beige; margin-left: 10px;" (click)="addForma()"
+							mat-raised-button type="submit"><mat-icon>add</mat-icon>
+						</a>
+					</div>
+
+
+					<div>
+
+						<div class="col-md-12" style="margin-top: 20px;">
+							<h2>Expérience</h2>
+							<table class="table" *ngIf="experience.length > 0">
+
+								<tbody>
+									<tr *ngFor="let i of experience">
+										<td>{{i.entreprise}}</td>
+										<td>{{i.poste}}</td>
+										<td>{{i.dateDeb.slice(0,10)}}</td>
+										<td>{{i.dateFin.slice(0,10)}}</td>
+										<td>{{i.description}}</td>
+										<td>
+											<a><i type="button" class="fa fa-trash text-danger" aria-hidden="true"(click)="deleteExp(i)"></i></a>
+
+											<a>
+												<i type="button" style="margin-left: 50px;"
+													(click)="editExpeTab(i)" class="bi bi-pencil-square text-primary"
+													aria-hidden="true"></i></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="alert alert-warning" *ngIf="experience.length == 0">Pas d'experience</div>
+						</div>
+						<div class="col-md-12">
+							<div class="formation-block">
+								<div class="card mb-3">
+
+									<div class="form-group row" style="padding: 10px;">
+										<div class="col-sm-6">
+											
+												<label>Date de début</label>
+												<input  type="date" name="dateDeb" [(ngModel)]="expForm.dateDeb"
+												 class="form-control">	
+										</div>
+										<div class="col-sm-6">
+											
+												<label>Date de fin</label>
+												<input  type="date" name="dateFin" [(ngModel)]="expForm.dateFin"
+												 class="form-control">
+											  
+										</div>
+									</div>
+									<div class="form-group row" style="padding: 10px;">
+										<div class="col-sm-6">
+											<label>Poste</label>
+											<input matInput type="text" name="poste" [(ngModel)]="expForm.poste"
+												class="form-control">
+										</div>
+										<div class="col-sm-6">
+											<label>Entreprise</label>
+											<input matInput type="text" name="entreprise" [(ngModel)]="expForm.entreprise"
+												class="form-control">
+										</div>
+									</div>
+									<div class="form-group row "style="padding: 10px;">
+										<div class="col-sm-6">
+										<label>Description</label>
+										<textarea  class="form-control" name="description" style="height: 120px;"
+											[(ngModel)]="expForm.description" rows="10" name="description"
+											placeholder="Description"></textarea>
+										</div>	
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+					<div class="col-md-11" style="margin-bottom: 10px;">
+						<button (click)="editexperience()" mat-raised-button type="submit"
+							color="primary"><mat-icon>done</mat-icon>
+							Terminé</button>
+						<a color="primary" (click)="addExp()" style="color: beige; margin-left: 10px;" mat-raised-button
+							type="submit"><mat-icon>add</mat-icon>
+						</a>
+					</div>
+				
+
+					<div>
+
+						<div class="col-md-12" style="margin-top: 20px;">
+							<h2>Langue</h2>
+							<table class="table">
+								<thead class="table-dark">
+									<tr>
+									  <th scope="col">Langue</th>
+									  <th scope="col">Action</th>
+									</tr>
+								  </thead>
+								<tbody>
+									<tr *ngFor="let item of langue; let i = index">
+										<td>{{item}}</td>
+										<td><i type="button" class="fa fa-trash text-danger" aria-hidden="true"></i>
+											<i type="button" (click)="editLangTab(item, i)" class="bi bi-pencil-square text-primary" aria-hidden="true" style="margin-left: 50px;"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+
+						</div>
+						<div class="col-md-11">
+							<div class="input-group mb-3">
+								<input type="text" name="langue" [(ngModel)]="inputLang" placeholder="Langue: Niveau"
+									class="form-control" aria-describedby="basic-addon2">
+							</div>
+						</div>
+						<div class="col-md-1">
+
+							<a color="primary" style="color: beige;" mat-raised-button (click)="pushLang()"
+								type="submit"><mat-icon>add</mat-icon>
+							</a>
+
+						</div>
+						<div class="col-md-11" style="margin-bottom: 10px;">
+							<button mat-raised-button type="submit" color="primary"><mat-icon>done</mat-icon>
+								Terminé</button>
+
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>

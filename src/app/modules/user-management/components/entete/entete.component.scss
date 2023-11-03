@@ -1,0 +1,26 @@
+
+.form-control{
+	color: #4b4b4b !important;
+	font-size: 15.96px !important;
+	font-weight: 500 !important;
+}
+img {
+	padding-left: 20px;
+	height: 100px;
+	/* Définit la hauteur de l'image à 80 pixels */
+	border: 1px solid #000;
+	/* Bordure solide d'une largeur de 1 pixel et couleur noire */
+	border-radius: 5px;
+	/* Ajoute un arrondi aux coins de l'image */
+	padding: 10px;
+	/* Ajoute un espace à l'intérieur de la bordure */
+}
+
+input.form-control {
+	transition: border-color 0.3s ease;
+}
+
+label{
+	font-size: 12px;
+	font-weight: bolder;
+}

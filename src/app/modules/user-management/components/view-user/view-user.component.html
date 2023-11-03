@@ -1,0 +1,92 @@
+<div class="div-main">
+    <div class="title-page">
+        <h2 *ngIf="me.role === 'condidat'">Profil Candidat</h2>
+        <h2 *ngIf="me.role === 'recruteur'">Profil Recruteur</h2>
+    </div>
+
+
+    <div mat-dialog-content class="page-user">
+        <div class="row py-4 px-2">
+            <div class="col-sm-4 col-md-4 col-lg-3">
+
+                <div
+                    style="display: flex; justify-content: center; margin-top: 15px; color :cornflowerblue; cursor: pointer;">
+                    <input type="file" hidden #fileInput (change)="uploadFile($event)">
+                </div>
+                <div (click)="fileInput.click()" *ngIf="!me?.picture">
+
+                    <img alt="..." style=" width: 100px; height: 100px; border-radius: 50px; margin-left: auto; margin-right: auto;"
+                        src="http://pluspng.com/img-png/user-png-icon-download-icons-logos-emojis-users-2240.png">
+
+                </div>
+                <div (click)="fileInput.click()" *ngIf="me?.picture">
+
+                    <img alt="..." style=" width: 100px; height: 100px; border-radius: 50px;margin-left: auto; margin-right: auto;"
+                        src="http://localhost:8081/api/public/picture/{{this.me.picture}}">
+
+                </div>
+
+                <h5 class="title" style="text-align: center; margin-top: 20px;">{{me?.firstName}}
+                    {{me?.lastName}}</h5>
+
+                
+
+                <div class="example-button-container" style="display: flex; justify-content: center;">
+                    <button mat-mini-fab color="primary" (click)="openDialogEditUser(me)" aria-label="Example icon button with a plus one icon">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" style="margin-left: 5px ;"
+                        aria-label="Example icon button with a plus one icon">
+                        <mat-icon>vpn_key</mat-icon>
+                    </button>
+                </div>
+
+
+                <hr>
+
+            </div>
+
+            <div  class="col-sm-8 col-md-8 col-lg-9 ">
+                <div mat-dialog-content class="card-user card card-info-user">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Nom</p>
+                            <p class="description-info">{{me?.firstName}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Prénom</p>
+                            <p class="description-info">{{me?.lastName}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Email</p>
+                            <p class="description-info">{{me?.email}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Téléphone</p>
+                            <p class="description-info">{{me?.phone}}</p>
+                        </div>
+                       
+                        <div class="col-sm-6 col-md-4 mb-2" >
+                            <p *ngIf="me.role === 'recruteur'" class="title-info">Entreprise</p>
+                            <p class="description-info">{{me?.entreprise}}</p>
+                            <p *ngIf="me.role === 'condidat'" class="title-info">Profession</p>
+                            <p class="description-info">{{myCv?.entete.profession}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2" >
+                            <p *ngIf="me.role === 'recruteur'" class="title-info">Email Entreprise</p>
+                            <p class="description-info">{{me?.emailEntreprise}}</p>
+                        
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
